@@ -42,7 +42,7 @@
     function logout(type) {
       return $http.post(backendURI + '/logout', { type: (type) ? type : 'logout' }).then(function() {
         session.$delete();
-        $state.transitionTo('login');
+        $state.transitionTo('home.login');
       });
     }
         

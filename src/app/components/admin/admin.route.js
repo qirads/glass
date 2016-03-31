@@ -2,15 +2,15 @@
   'use strict';
 
   angular
-    .module('glass.auth')
+    .module('glass')
     .config(routerConfig);
 
   /** @ngInject */
   function routerConfig($stateProvider) {
 
     $stateProvider
-      .state('home.login', {
-        template: '<glass-login flex></glass-login>'
+      .state("admin", {
+        templateUrl: "app/components/admin/admin.route.html"
       });
       
   }

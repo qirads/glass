@@ -9,6 +9,7 @@
   function MainController(auth) {
     //this.creationDate = 1449374294108;
     this.logout = auth.logout;
+    this.isLoggedIn = auth.isLoggedIn;
   }
   
 })();

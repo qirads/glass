@@ -16,14 +16,16 @@
     Idle.watch();
 
     function onStateChangeStart(event, toState, toParams) {
-      if (toState.name === 'login' && auth.isLoggedIn()) {
+      if (toState.name === 'home.login' && auth.isLoggedIn()) {
         event.preventDefault();
         auth.followRedirect();
       }
       if (toState.data && toState.data.authenticate && !auth.isLoggedIn()) {
-        event.preventDefault();
-        auth.registerRedirect(toState, toParams);
-        $state.transitionTo('login');
+        if (toState.name != 'home.login') {
+          event.preventDefault();
+          auth.registerRedirect(toState, toParams);
+          $state.transitionTo('home.login');
+        }
       }
     }
         
