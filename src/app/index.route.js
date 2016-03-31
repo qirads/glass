@@ -17,7 +17,10 @@
         data: {
           authenticate: true
         }
-      })
+      })      
+      .state('home.login', {
+        template: '<glass-login flex></glass-login>'
+      });
 
     $urlRouterProvider.otherwise('/');
   }

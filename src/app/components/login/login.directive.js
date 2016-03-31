@@ -2,14 +2,14 @@
   'use strict';
 
   angular
-    .module('glass.auth')
+    .module('glass')
     .directive('glassLogin', glassLogin);
 
   /** @ngInject */
   function glassLogin() {
     var directive = {
       restrict: 'E',
-      templateUrl: 'app/components/auth/login.template.html',
+      templateUrl: 'app/components/login/login.template.html',
       controller: LoginController,
       controllerAs: 'vm'
     };
