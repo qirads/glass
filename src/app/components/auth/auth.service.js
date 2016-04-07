@@ -88,8 +88,6 @@
       }
       
       function onStateChangeStart(event, toState, toParams) {
-        $log.debug(event);
-        $log.debug(toState);
         if (toState.name === _loginState && isLoggedIn()) {
           event.preventDefault();
           followRedirect();
