@@ -34,9 +34,7 @@
       };
       
       function login(credentials) {
-        return $http.post(backendURI + '/login', { credentials: credentials }, {
-          ignoreAuthModule: true
-        }).then(function(result) {
+        return $http.post(backendURI + '/login', { credentials: credentials }).then(function(result) {
           session.token = result.data.token;
           session.user = result.data.user;
           session.$create('sessionStorageWithMultiTabSupport');
