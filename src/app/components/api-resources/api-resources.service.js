@@ -4,12 +4,12 @@
   angular
     .module('glass')
     /** @ngInject */
-    .factory('User', function($resource) {
-       return $resource('/api/v1/users/:id');
+    .factory('User', function($resource, backendURI) {
+       return $resource(backendURI + '/api/v1/users/:id');
     })
     /** @ngInject */
-    .factory('Session', function($resource) {
-       return $resource('/api/v1/session/:id');
+    .factory('Session', function($resource, backendURI) {
+       return $resource(backendURI + '/api/v1/sessions/:id');
     });
   
 })();
