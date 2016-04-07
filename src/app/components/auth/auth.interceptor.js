@@ -6,7 +6,7 @@
     .factory('authInterceptor', authInterceptor);
 
   /** @ngInject */
-  function authInterceptor($injector, $q, backendURI) {
+  function authInterceptor($injector, $q, $log, backendURI) {
 
     var auth;
     
@@ -17,7 +17,7 @@
     
     function request(config) {
       auth = auth || $injector.get('auth');
-      if (config.url.substring(0, backendURI.length) === backendURI && auth.isLoggedIn()) {
+      if (config.url.substr(0, backendURI.length) === backendURI && auth.isLoggedIn()) {
         config = auth.addAuthHeader(config);
       }
       return config;
@@ -26,9 +26,11 @@
     function responseError(rejection) {
       auth = auth || $injector.get('auth');
       if (
-        rejection.config.url.substring(0, backendURI.length) === backendURI &&
-        rejection.config.status === 401 &&
-        rejection.config.url.substring(backendURI.length + 1, '/login'.length) != 'login') {
+        rejection.config.url.substr(0, backendURI.length) === backendURI &&
+        rejection.status === 401 &&
+        rejection.config.url.substr(backendURI.length + 1, '/login'.length) != 'login'
+      ) {
+        $log.debug('hi2');
         auth.reset();
       }
       return $q.reject(rejection);
