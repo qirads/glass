@@ -6,7 +6,7 @@
     .factory('authInterceptor', authInterceptor);
 
   /** @ngInject */
-  function authInterceptor($injector, $q, $log, backendURI) {
+  function authInterceptor($injector, $q, backendURI) {
 
     var auth;
     
@@ -30,7 +30,6 @@
         rejection.status === 401 &&
         rejection.config.url.substr(backendURI.length + 1, '/login'.length) != 'login'
       ) {
-        $log.debug('hi2');
         auth.reset();
       }
       return $q.reject(rejection);
