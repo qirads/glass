@@ -6,8 +6,8 @@
     .config(config);
 
   /** @ngInject */
-  function config($mdThemingProvider, $logProvider) {
-    
+  function config($mdThemingProvider, $logProvider, authProvider) {
+
     // Set theme
     $mdThemingProvider.theme('default')
       .primaryPalette('blue-grey')
@@ -15,7 +15,10 @@
       
     // Enable log
     $logProvider.debugEnabled(true);
-    
+
+    // Pass in routes
+    authProvider.entryState('main')
+      .loginState('main.login');
   }
 
 })();

@@ -1,0 +1,18 @@
+<md-content layout-padding ng-cloak>
+  <md-tabs>
+    <md-tab label="Users">
+      <md-list>
+        <md-list-item ng-repeat="user in admin.users">
+          {{user.userName}}
+        </md-list-item>
+      </md-list>
+    </md-tab>
+    <md-tab label="Sessions">
+      <md-list>
+        <md-list-item ng-repeat="session in admin.sessions">
+          {{session}}
+        </md-list-item>
+      </md-list>
+    </md-tab>
+  </md-tabs>
+</md-content>

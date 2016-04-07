@@ -1,17 +1,15 @@
-<div layout="column">
-
+<div layout="column" flex>
   <md-toolbar layout="row" layout-align="center center">
     Glass
     <md-button ng-show="main.isLoggedIn()" ng-click="main.logout()">Logout</md-button>
   </md-toolbar>
-  <div layout="row">
-    <md-sidenav ng-show="main.isLoggedIn()" md-is-locked-open="true" class="md-whiteframe-z2">
+  <div layout="row" flex>
+    <md-sidenav ng-show="main.isLoggedIn()" layout="column" md-is-locked-open="true" md-whiteframe="2">
       <md-button>Search</md-button>
       <md-button>History</md-button>
-      <md-button>Admin</md-button>
+      <md-button ng-show="main.isAdmin()" ng-click="main.showAdmin()">Admin</md-button>
       <md-button>Help</md-button>
     </md-sidenav>
-    <div ui-view flex></div>
+    <div ui-view flex="100"></div>
   </div>
-  
 </div>
