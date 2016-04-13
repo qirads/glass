@@ -7,9 +7,9 @@
     <md-sidenav ng-show="main.isLoggedIn()" layout="column" md-is-locked-open="true" md-whiteframe="2">
       <md-button>Search</md-button>
       <md-button>History</md-button>
-      <md-button ng-show="main.isAdmin()" ng-click="main.showAdmin()">Admin</md-button>
+      <md-button ng-show="main.hasAdminPrivileges()" ng-click="main.showAdmin()">Admin</md-button>
       <md-button>Help</md-button>
     </md-sidenav>
-    <div ui-view flex="100"></div>
+    <div layout="row" layout-padding flex="100" ui-view></div>
   </div>
 </div>

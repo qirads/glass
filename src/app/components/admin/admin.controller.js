@@ -6,10 +6,10 @@
     .controller('AdminController', AdminController);
 
   /** @ngInject */
-  function AdminController(User, Session) {
+  function AdminController(ServerUser, ServerSession) {
     var vm = this;
-    vm.users = User.query();
-    vm.sessions = Session.query();
+    vm.users = ServerUser.query();
+    vm.sessions = ServerSession.query();
   }
 
 })();

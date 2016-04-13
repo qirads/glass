@@ -27,8 +27,9 @@
       auth = auth || $injector.get('auth');
       if (
         rejection.config.url.substr(0, backendURI.length) === backendURI &&
+        rejection.method === 'POST' &&
         rejection.status === 401 &&
-        rejection.config.url.substr(backendURI.length + 1, '/login'.length) != 'login'
+        rejection.config.url.substr(backendURI.length, rejection.config.url.length - backendURI.length) != '/api/v1/sessions'
       ) {
         auth.reset();
       }

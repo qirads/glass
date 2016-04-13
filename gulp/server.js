@@ -43,7 +43,7 @@ function browserSyncInit(baseDir, browser) {
     .inject()
     .addFile(path.join(__dirname, '..', conf.certFilePaths.rootCertificate));
         
-  server.middleware = proxyMiddleware(['/api', '/login', '/logout', '/refresh'], {
+  server.middleware = proxyMiddleware(['/api'], {
     target: 'https://' + conf.hostName + ':3000',
     changeOrigin: true,
     agent: require('https').globalAgent

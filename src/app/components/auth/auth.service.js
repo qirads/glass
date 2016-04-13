@@ -17,7 +17,7 @@
     this.entryState = function(value) { _entryState = value; return this; };
 
     /** @ngInject */
-    this.$get = function($rootScope, $http, $state, $timeout, $mdDialog, $log, backendURI, session) {
+    this.$get = function($rootScope, $state, $timeout, $mdDialog, $log, ServerSession, ServerUser, session) {
       
       $rootScope.$on('$stateChangeStart', onStateChangeStart);
       $rootScope.$on('storedObject:session:externalChange', onSessionChange);
@@ -28,17 +28,20 @@
         login: login,
         addAuthHeader: addAuthHeader,
         isLoggedIn: isLoggedIn,
-        isAdmin: isAdmin,
+        hasAdminPrivileges: hasAdminPrivileges,
         logout: logout,
         reset: reset
       };
       
       function login(credentials) {
-        return $http.post(backendURI + '/login', { credentials: credentials }).then(function(result) {
-          session.token = result.data.token;
-          session.user = result.data.user;
+        return ServerSession.save({ credentials: credentials }).$promise.then(function(serverSession) {
+          angular.extend(session, serverSession);
           session.$create('sessionStorageWithMultiTabSupport');
           followRedirect();
+          ServerUser.get({ id: session.userId }).$promise.then(function(serverUser) {
+            session.hasAdminPrivileges = serverUser.isAdmin;
+            session.$save;
+          });
         });
       }
       
@@ -51,19 +54,23 @@
         return !!session.token;
       }
       
-      function isAdmin() {
-        return session.user && session.user.isAdmin;
+      function hasAdminPrivileges() {
+        return session.hasAdminPrivileges;
       }
           
       function refresh() {
-        return $http.post(backendURI + '/refresh').then(function(result) {
-          session.token = result.data.token;
+        return ServerSession.update( { id: session._id }, { state: 'active'} ).$promise.then(function(s) {
+          session.token = s.token;
           session.$update();
         });
       }
-          
-      function logout(type) {
-        return $http.post(backendURI + '/logout', { type: (type) ? type : 'logout' }).then(reset);
+      
+      function logout() {
+        return ServerSession.update({ id: session._id }, { state: 'user-logged-out' }).$promise.then(reset);
+      }
+
+      function timeout() {
+        return ServerSession.update({ id: session._id }, { state: 'user-timed-out' }).$promise.then(reset);
       }
 
       function reset() {
@@ -111,7 +118,7 @@
       
       function onIdleStart() {
         if (isLoggedIn()) {
-          logout('timeout');
+          timeout();
         }
       }
                   
