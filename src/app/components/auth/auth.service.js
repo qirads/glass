@@ -38,10 +38,6 @@
           angular.extend(session, serverSession);
           session.$create('sessionStorageWithMultiTabSupport');
           followRedirect();
-          ServerUser.get({ id: session.userId }).$promise.then(function(serverUser) {
-            session.hasAdminPrivileges = serverUser.isAdmin;
-            session.$save;
-          });
         });
       }
       
