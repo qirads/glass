@@ -9,6 +9,10 @@
       vm = _$controller_('MainController');
     }));
 
+    it('should exist', function() {
+      expect(vm).toBeDefined();
+    });
+
     xit('should have a timestamp creation date', function() {
       expect(vm.creationDate).toEqual(jasmine.any(Number));
     });

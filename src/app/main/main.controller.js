@@ -3,7 +3,7 @@
 
   angular
     .module('glass')
-    .controller('MainController', MainController)
+    .controller('MainController', MainController);
 
   /** @ngInject */
   function MainController($state, auth) {
