@@ -55,7 +55,7 @@
       }
           
       function refresh() {
-        return ServerSession.update( { id: session._id }, { state: 'active'} ).$promise.then(function(s) {
+        return ServerSession.update( { id: session._id }, { state: 'open'} ).$promise.then(function(s) {
           session.token = s.token;
           session.$update();
         });
