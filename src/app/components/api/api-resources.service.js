@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('glass.auth')
+    .module('glass.api')
     /** @ngInject */
     .factory('ServerUser', function($resource, backendURI) {
        return $resource(backendURI + '/api/v1/users/:id', null, {

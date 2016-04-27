@@ -10,6 +10,7 @@
     //this.creationDate = 1449374294108;
     this.logout = auth.logout;
     this.isLoggedIn = auth.isLoggedIn;
+    this.loggedInUserName = auth.loggedInUserName;
     this.hasAdminPrivileges = auth.hasAdminPrivileges;
     this.showAdmin = showAdmin;
 

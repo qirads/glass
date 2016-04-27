@@ -1,0 +1,56 @@
+<md-dialog aria-label="Create New User">
+  <form name="vm.createUserForm" ng-submit="vm.createUserForm.$valid && vm.submit()" novalidate>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Create New User</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm.cancel()">
+          <md-icon><i class="material-icons">close</i></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+      <div layout="column" layout-margin>
+        <div layout="row" layout-margin>
+          <md-input-container md-block>
+            <label>User Name</label>
+            <input name="userName" ng-model="vm.userName" required md-autofocus>
+            <div ng-messages="vm.createUserForm.userName.$error">
+              <div ng-message="required">User name is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container md-block>
+            <label>User Type</label>
+            <md-select name="domain" ng-model="vm.domain" required>
+              <md-option value='local'>Local user</md-option>
+              <md-option value='CORP'>CORP user</md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        <div layout="row" layout-margin>
+          <md-input-container md-block>
+            <label>Password</label>
+            <input name="password" type="password" ng-model="vm.password" ng-required="vm.domain==='local'" ng-disabled="vm.domain !== 'local'">
+            <div ng-messages="vm.createUserForm.password.$error">
+              <div ng-message="required">Password is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container md-block>
+            <label>Confirm Password</label>
+            <input name="passwordConfirmation" type="password" ng-model="vm.passwordConfirmation" match="vm.password" ng-disabled="vm.domain !== 'local'">
+            <div ng-messages="vm.createUserForm.passwordConfirmation.$error">
+              <div ng-message="match">Passwords do not match.</div>
+            </div>
+          </md-input-container>
+        </div>
+        <div layout="row" layout-margin layout-align="center center">
+          <md-checkbox ng-model="vm.isAdmin">Give admin privileges.</md-checkbox>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+      <md-button ng-click="vm.cancel()">Cancel</md-button> 
+      <md-button type="submit" class="md-primary md-raised" ng-disabled="!vm.createUserForm.$valid">Create User</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>  

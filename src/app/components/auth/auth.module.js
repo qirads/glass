@@ -2,6 +2,6 @@
   'use strict';
 
   angular
-    .module('glass.auth', ['ngIdle', 'yaacovCR.storedObject']);
+    .module('glass.auth', ['glass.api', 'ngIdle', 'yaacovCR.storedObject']);
 
 })();

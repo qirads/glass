@@ -1,16 +1,30 @@
 <md-tabs flex>
-  <md-tab label="Users">
-    <md-list>
-      <md-list-item ng-repeat="user in admin.users">
-        <p>{{user}}</p>
-      </md-list-item>
-    </md-list>
+  <md-tab label="Users" md-on-select="admin.refreshUsers()">
+    <div layout="column" style="margin: 32px 64px 32px 64px" md-whiteframe="3">
+      <md-toolbar layout-fill layout-align="center center">
+        <div class="md-toolbar-tools">
+          <span flex></span>
+          <h2><span>Users</span></h2>
+          <span flex></span>
+          <md-button class="md-raised" ng-click="admin.showCreateUserDialog()">Create New User</md-button>
+        </div>
+      </md-toolbar>
+      <md-list>
+        <md-list-item ng-repeat="user in admin.users" layout-align="center center">
+          <p layout-margin layout-padding>{{user.userName}}</p>
+          <span flex></span>
+          <md-button class="md-raised" ng-hide="user._id === admin.loggedInUserId()" ng-click="admin.toggleActivation(user)">{{user.activated ? 'Deactivate' : 'Activate'}}</md-button>
+          <md-button class="md-raised" ng-hide="user._id === admin.loggedInUserId()" ng-click="admin.deleteUser(user)">Delete User</md-button>
+          <md-button class="md-raised" ng-hide="user.domain !== 'local'" ng-click="admin.showChangePasswordDialog(user)">Change Password</md-button>
+        </md-list-item>
+      </md-list>        
+    </div>
   </md-tab>
-  <md-tab label="Sessions">
-    <md-list>
-      <md-list-item ng-repeat="session in admin.sessions">
-        <p>{{session}}</p>
-      </md-list-item>
-    </md-list>
+  <md-tab label="Active Sessions" md-on-select="admin.refreshSessions()">
+      <md-list>
+        <md-list-item ng-repeat="session in admin.sessions">
+          <p>{{session._id}}</p>
+        </md-list-item>
+      </md-list>
   </md-tab>
 </md-tabs>

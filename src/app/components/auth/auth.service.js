@@ -17,7 +17,7 @@
     this.entryState = function(value) { _entryState = value; return this; };
 
     /** @ngInject */
-    this.$get = function($rootScope, $state, $timeout, $mdDialog, $log, ServerSession, ServerUser, session) {
+    this.$get = function($rootScope, $state, $timeout, $mdDialog, ServerSession, ServerUser, session) {
       
       $rootScope.$on('$stateChangeStart', onStateChangeStart);
       $rootScope.$on('storedObject:session:externalChange', onSessionChange);
@@ -27,7 +27,10 @@
       return {
         login: login,
         addAuthHeader: addAuthHeader,
+        changePassword: changePassword,
         isLoggedIn: isLoggedIn,
+        loggedInUserName: loggedInUserName,
+        loggedInUserId: loggedInUserId,
         hasAdminPrivileges: hasAdminPrivileges,
         logout: logout,
         reset: reset
@@ -37,7 +40,18 @@
         return ServerSession.save({ credentials: credentials }).$promise.then(function(serverSession) {
           angular.extend(session, serverSession);
           session.$create('sessionStorageWithMultiTabSupport');
+          ServerUser.get({ id: session.userId}).$promise.then(function(serverUser) {
+            session.user = serverUser;
+            session.$update();
+          });
           followRedirect();
+        });
+      }
+
+      function changePassword(userId, newPassword) {
+        return ServerUser.update({ id: userId }, { password: newPassword }).$promise.then(function(serverUser) {
+          session.token = serverUser.token;
+          session.$update();
         });
       }
       
@@ -50,13 +64,25 @@
         return !!session.token;
       }
       
+      function hasLoggedInUser() {
+        return !!session.user;
+      }
+
+      function loggedInUserName() {
+        return hasLoggedInUser() ? session.user.userName : '';
+      }
+
+      function loggedInUserId() {
+        return hasLoggedInUser() ? session.user._id : '';
+      }
+      
       function hasAdminPrivileges() {
-        return session.hasAdminPrivileges;
+        return isLoggedIn() ? session.hasAdminPrivileges : false;
       }
           
       function refresh() {
-        return ServerSession.update( { id: session._id }, { state: 'open'} ).$promise.then(function(s) {
-          session.token = s.token;
+        return ServerSession.update({ id: session._id }, { state: 'open' }).$promise.then(function(serverSession) {
+          session.token = serverSession.token;
           session.$update();
         });
       }
@@ -71,6 +97,7 @@
 
       function reset() {
         session.$delete();
+        $mdDialog.cancel();
         $state.transitionTo(_loginState);
       }
                 

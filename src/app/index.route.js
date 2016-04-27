@@ -20,9 +20,31 @@
         template: '<glass-login flex></glass-login>'
       })
       .state('main.admin', {
+        url: 'admin',
         templateUrl: 'app/components/admin/admin.html',
         controller: 'AdminController',
         controllerAs: 'admin',
+        data: { authenticate: true }
+      })
+      .state('main.search', {
+        url: 'search',
+        templateUrl: 'app/components/search/search.html',
+        controller: 'SearchController',
+        controllerAs: 'search',
+        data: { authenticate: true }
+      })
+      .state('main.query', {
+        url: 'search',
+        templateUrl: 'app/components/query/query.html',
+        controller: 'QueryController',
+        controllerAs: 'query',
+        data: { authenticate: true }
+      })
+      .state('main.help', {
+        url: 'help',
+        templateUrl: 'app/components/help/help.html',
+        controller: 'HelpController',
+        controllerAs: 'help',
         data: { authenticate: true }
       });
 

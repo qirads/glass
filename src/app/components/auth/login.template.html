@@ -1,6 +1,6 @@
-<md-content layout-padding ng-cloak>
+<md-content layout-padding>
 
-  <form name="vm.loginForm" ng-submit="vm.loginForm.$valid && vm.login(vm.credentials)" layout="column" layout-align="center center" novalidate>
+  <form name="vm.loginForm" ng-submit="vm.loginForm.$valid && vm.login()" layout="column" layout-align="center center" novalidate>
 
     <md-input-container md-block>
       <label>Username</label> 
@@ -17,14 +17,13 @@
         <div ng-message="required">Password is required.</div>
       </div>
       <div ng-messages="vm.serverError" ng-show="vm.loginForm.$valid && vm.loginForm.$pristine">
-        <div ng-message="connectionError">{{vm.serverErrorMessage}}</div>
-        <div ng-message="authFailure">{{vm.serverErrorMessage}}</div>
-        <div ng-message="tooManyTries">{{vm.serverErrorMessage}}</div>
-        <div ng-message="serverError">{{vm.serverErrorMessage}}</div>
+        <div ng-message="authFailure">{{vm.serverError.message}}</div>
+        <div ng-message="tooManyTries">{{vm.serverError.message}}</div>
+        <div ng-message="serverError">{{vm.serverError.message}}</div>
       </div>
     </md-input-container>
 
-    <md-button type="submit" class="md-primary md-raised" ng-disabled="vm.loginResponsePending">Login</md-button>
+    <md-button type="submit" class="md-primary md-raised" ng-disabled="!vm.loginForm.$valid ||vm.loginResponsePending">Login</md-button>
   </form>
 
 </md-content>

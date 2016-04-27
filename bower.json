@@ -8,14 +8,15 @@
     "angular-messages": "~1.5.0",
     "angular-aria": "~1.5.0",
     "angular-resource": "~1.5.0",
-    "angular-ui-router": "^0.2.18",
-    "angular-material": "^1.0.0",
+    "angular-ui-router": "~0.2.18",
+    "angular-material": "~1.0.7",
     "material-design-iconfont": "~0.0.2",
     "angular-toastr": "^1.5.0",
     "moment": "^2.10.6",
     "angular": "~1.5.0",
     "ng-idle": "~1.2.0",
-    "angular-stored-object": "~1.0.7"
+    "angular-stored-object": "~1.0.7",
+    "angular-validation-match": "^1.7.1"
   },
   "devDependencies": {
     "angular-mocks": "~1.5.0"
