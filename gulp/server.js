@@ -1,7 +1,7 @@
 'use strict';
 
 //override node.js core modules (!!!) to allow offline local dns resolution on windows
-if (process.env.NODE_ENV === 'development') { require('./utils').offline(); }
+require('./utils').offline();
 
 var path = require('path');
 var gulp = require('gulp');
