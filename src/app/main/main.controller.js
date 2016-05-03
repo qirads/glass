@@ -13,9 +13,13 @@
     this.loggedInUserName = auth.loggedInUserName;
     this.hasAdminPrivileges = auth.hasAdminPrivileges;
     this.showAdmin = showAdmin;
+    this.showSearch = showSearch;
 
     function showAdmin() {
       $state.transitionTo('main.admin');      
+    }
+    function showSearch() {
+      $state.transitionTo('main.search');      
     }
 
   }
