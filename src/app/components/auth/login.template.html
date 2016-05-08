@@ -2,7 +2,7 @@
 
   <form name="vm.loginForm" ng-submit="vm.loginForm.$valid && vm.login()" layout="column" layout-align="center center" novalidate>
 
-    <md-input-container md-block>
+    <md-input-container class="md-block">
       <label>Username</label> 
       <input name="userName" ng-model="vm.credentials.userName" required ng-disabled="vm.loginResponsePending" autofocus>
       <div ng-messages="vm.loginForm.userName.$error">
@@ -10,7 +10,7 @@
       </div>
     </md-input-container>
 
-    <md-input-container md-block>
+    <md-input-container class="md-block">
       <label>Password</label>
       <input name="password" type="password" ng-model="vm.credentials.password" required ng-disabled="vm.loginResponsePending">
       <div ng-messages="vm.loginForm.password.$error">

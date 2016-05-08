@@ -10,16 +10,16 @@
 
     var vm = this;
     
-    this.loggedInUserId = auth.loggedInUserId;
-    this.refreshUsers = refreshUsers;
-    this.showCreateUserDialog = showCreateUserDialog;
-    this.toggleActivation = toggleActivation;
-    this.deleteUser = deleteUser;
-    this.showChangePasswordDialog = showChangePasswordDialog;
-    this.refreshSessions = refreshSessions;
+    vm.loggedInUserId = auth.loggedInUserId;
+    vm.refreshUsers = refreshUsers;
+    vm.showCreateUserDialog = showCreateUserDialog;
+    vm.toggleActivation = toggleActivation;
+    vm.deleteUser = deleteUser;
+    vm.showChangePasswordDialog = showChangePasswordDialog;
+    vm.refreshSessions = refreshSessions;
     
     function refreshUsers() {
-      this.users = ServerUser.query();
+      vm.users = ServerUser.query();
     }
 
     function showCreateUserDialog() {
@@ -31,7 +31,7 @@
         bindToController: true
       }).then(function() {
         vm.refreshUsers();
-      });;
+      });
     }
         
     function toggleActivation(user) {
@@ -56,7 +56,7 @@
     }
         
     function refreshSessions() {
-      this.sessions = ServerSession.query({
+      vm.sessions = ServerSession.query({
         populate: 'userId',
         query: {
           state: 'open',

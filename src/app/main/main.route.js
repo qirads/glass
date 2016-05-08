@@ -33,11 +33,11 @@
         controllerAs: 'search',
         data: { authenticate: true }
       })
-      .state('main.help', {
-        url: 'help',
-        templateUrl: 'app/components/help/help.html',
-        controller: 'HelpController',
-        controllerAs: 'help',
+      .state('main.about', {
+        url: 'about',
+        templateUrl: 'app/components/about/about.html',
+        controller: 'AboutController',
+        controllerAs: 'about',
         data: { authenticate: true }
       });
 

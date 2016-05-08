@@ -6,10 +6,12 @@
     .controller('CreateUserDialogController', CreateUserDialogController);
 
   /** @ngInject */
-  function CreateUserDialogController($mdDialog, ServerUser) {    
-    this.domain = 'local';
-    this.cancel = cancel;
-    this.submit = submit;
+  function CreateUserDialogController($mdDialog, ServerUser) {
+    var vm = this;
+    
+    vm.domain = 'local';
+    vm.cancel = cancel;
+    vm.submit = submit;
         
     function cancel() {
       $mdDialog.cancel();
@@ -17,13 +19,13 @@
     
     function submit() {
       var user = {
-        userName: this.userName,
-        domain: this.domain,
-        isAdmin: this.isAdmin,
+        userName: vm.userName,
+        domain: vm.domain,
+        isAdmin: vm.isAdmin,
         activated: true
       };
-      if (this.domain === 'local') {
-        angular.extend(user, { password: this.password });
+      if (vm.domain === 'local') {
+        angular.extend(user, { password: vm.password });
       }
       ServerUser.save(user).$promise.then(function() {
         $mdDialog.hide();

@@ -7,15 +7,16 @@
 
   /** @ngInject */
   function ChangePasswordDialogController($mdDialog, auth) {
-    this.cancel = cancel;
-    this.submit = submit;
+    var vm = this;
+    vm.cancel = cancel;
+    vm.submit = submit;
         
     function cancel() {
       $mdDialog.cancel();
     }
     
     function submit() {
-      auth.changePassword(this.user._id, this.password).then(function() {
+      auth.changePassword(vm.user._id, vm.password).then(function() {
         $mdDialog.hide();
       });
     }

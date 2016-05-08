@@ -11,7 +11,7 @@
       restrict: 'E',
       templateUrl: 'app/components/auth/login.template.html',
       controller: 'GlassLoginController',
-      controllerAs: 'vm',
+      controllerAs: 'vm'
     };
 
     return directive;    

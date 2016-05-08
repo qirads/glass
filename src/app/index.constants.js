@@ -4,7 +4,7 @@
 
   angular
     .module('glass')
-    .constant('backendURI', 'https://www.glass.org:9000')
+    .constant('BACKEND_URI', 'https://www.glass.org:9000')
     .constant('moment', moment);
 
 })();

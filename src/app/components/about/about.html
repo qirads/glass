@@ -1,0 +1,25 @@
+<div layout="column">
+  <div layout="row" layout-align="center center" layout-padding flex>
+    <span flex></span>
+    <h3 class="md-title">Built on Amazing Open Source Web Technologies</h3>
+    <span flex></span>
+  </div>
+  <div layout="row" layout-wrap>
+    <md-card flex="30" ng-repeat="awesomeThing in about.awesomeThings | orderBy:'rank'">
+      <md-card-title>
+        <md-card-title-text>
+          <h3 class="md-headline">{{ awesomeThing.title }}</h3>
+        </md-card-title-text>
+        <md-card-title-media>
+          <img ng-src="assets/images/{{ awesomeThing.logo }}" style="width: 100px" alt="{{ awesomeThing.title }}">
+        </md-card-title-media>
+      </md-card-title>
+      <md-card-content>
+        <p>{{ awesomeThing.description }}</p>            
+      </md-card-content>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-href="{{ awesomeThing.url }}">Website</md-button>
+      </md-card-actions>
+    </md-card>
+  </div>
+</div>

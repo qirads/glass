@@ -7,19 +7,24 @@
 
   /** @ngInject */
   function MainController($state, auth) {
-    //this.creationDate = 1449374294108;
-    this.logout = auth.logout;
-    this.isLoggedIn = auth.isLoggedIn;
-    this.loggedInUserName = auth.loggedInUserName;
-    this.hasAdminPrivileges = auth.hasAdminPrivileges;
-    this.showAdmin = showAdmin;
-    this.showSearch = showSearch;
+    var vm = this;
+    //vm.creationDate = 1449374294108;
+    vm.logout = auth.logout;
+    vm.isLoggedIn = auth.isLoggedIn;
+    vm.loggedInUserName = auth.loggedInUserName;
+    vm.hasAdminPrivileges = auth.hasAdminPrivileges;
+    vm.showAdmin = showAdmin;
+    vm.showSearch = showSearch;
+    vm.showAbout = showAbout;
 
     function showAdmin() {
-      $state.transitionTo('main.admin');      
+      $state.transitionTo('main.admin');
     }
     function showSearch() {
-      $state.transitionTo('main.search');      
+      $state.transitionTo('main.search');
+    }
+    function showAbout() {
+      $state.transitionTo('main.about');
     }
 
   }

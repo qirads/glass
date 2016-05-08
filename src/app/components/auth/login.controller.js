@@ -7,18 +7,17 @@
 
   /** @ngInject */
   function GlassLoginController(auth) {
-
-    var self = this;    
-    this.responsePending = false;
-    this.login = login;
+    var vm = this;
+    vm.responsePending = false;
+    vm.login = login;
     
     function login() {
-      this.loginResponsePending = true;
-      auth.login(self.credentials).catch(function(error) {
-        self.loginResponsePending = false;
+      vm.loginResponsePending = true;
+      auth.login(vm.credentials).catch(function(error) {
+        vm.loginResponsePending = false;
         // $pristine is reset so that server error can be cleared after form entered.
-        self.loginForm.$setPristine();
-        self.serverError = getPrettyServerError(error);
+        vm.loginForm.$setPristine();
+        vm.serverError = getPrettyServerError(error);
         return error;
       });
     }
@@ -27,7 +26,7 @@
       var serverError = {};
       if (!error.data) {
         serverError.serverError = true;
-        serverErrorMessage = 'Uh-oh. Something went wrong.';
+        serverError.message = 'Uh-oh. Something went wrong.';
         return serverError;
       }
       if (error.data.name === 'UnauthorizedError') {

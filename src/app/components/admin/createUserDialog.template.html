@@ -12,14 +12,14 @@
     <md-dialog-content layout-padding>
       <div layout="column" layout-margin>
         <div layout="row" layout-margin>
-          <md-input-container md-block>
+          <md-input-container class="md-block">
             <label>User Name</label>
             <input name="userName" ng-model="vm.userName" required md-autofocus>
             <div ng-messages="vm.createUserForm.userName.$error">
               <div ng-message="required">User name is required.</div>
             </div>
           </md-input-container>
-          <md-input-container md-block>
+          <md-input-container class="md-block">
             <label>User Type</label>
             <md-select name="domain" ng-model="vm.domain" required>
               <md-option value='local'>Local user</md-option>
@@ -28,7 +28,7 @@
           </md-input-container>
         </div>
         <div layout="row" layout-margin>
-          <md-input-container md-block>
+          <md-input-container class="md-block">
             <label>Password</label>
             <input name="password" type="password" ng-model="vm.password" ng-required="vm.domain==='local'" ng-disabled="vm.domain !== 'local'">
             <div ng-messages="vm.createUserForm.password.$error">

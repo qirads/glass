@@ -12,6 +12,7 @@
       'ngMaterial',
       'ui.router',
       'validation.match',
+      'dibari.angular-ellipsis',
       'glass.auth',
       'glass.api'
     ]);

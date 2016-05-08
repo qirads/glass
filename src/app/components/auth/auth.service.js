@@ -19,10 +19,12 @@
     /** @ngInject */
     this.$get = function($rootScope, $state, $timeout, $mdDialog, ServerSession, ServerUser, session) {
       
+      /* eslint-disable angular/on-watch */
       $rootScope.$on('$stateChangeStart', onStateChangeStart);
       $rootScope.$on('storedObject:session:externalChange', onSessionChange);
       $rootScope.$on('Keepalive', onKeepalive);
       $rootScope.$on('IdleStart', onIdleStart);
+      /* eslint-enable angular/on-watch */
       
       return {
         login: login,
