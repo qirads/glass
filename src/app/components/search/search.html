@@ -1,26 +1,26 @@
-<div layout="column" flex>
-  <form name="vm.searchForm" novalidate>
-    <div layout="column" layout-padding>
-      <div layout="row">
-        <md-button ng-click="">Study Status</md-button>
-        <md-button ng-click="">Study Type</md-button>
-        <md-button ng-click="">Study Timing</md-button>
-        <md-button ng-click="">Patient Location</md-button>
-        <md-button ng-click="">Report Timing</md-button>        
-      </div>
-      <div layout="row">
-        <md-chips ng-model="search.criteria" flex placeholder="Add search criteria" secondary-placeholder="Add more search criteria" md-on-add="search.createNewSearch()">
-        </md-chips>
-      </div>
+<form name="vm.searchForm" novalidate layout="column" flex>
+  <div layout="column" layout-padding>
+    <div layout="row">
+      <md-button ng-click="">Study Status</md-button>
+      <md-button ng-click="">Study Type</md-button>
+      <md-button ng-click="">Study Timing</md-button>
+      <md-button ng-click="">Patient Location</md-button>
+      <md-button ng-click="">Report Timing</md-button>        
     </div>
-    <md-divider></md-divider>
-    <md-virtual-repeat-container style="min-height: 300px; width: 100%" dynamic-height>
-      <div md-virtual-repeat="result in search.results" md-on-demand>
-        <div layout="row" layout-align="start center" layout-margin layout-padding>
-          <p ng-bind="result.entry" ellipsis style="height: 35px"></p>
-        </div>
-        <md-divider ng-if="result"></md-divider>
-      </div>
-    </md-virtual-repeat-container>
-  </form>
+    <div layout="row">
+      <md-chips ng-model="search.criteria" flex placeholder="Add search criteria" secondary-placeholder="Add more search criteria" md-on-add="search.createNewSearch()" md-on-remove="search.createNewSearch()">
+      </md-chips>
+    </div>
+  </div>
 </div>
+<md-divider></md-divider>
+<div flex>
+  <md-virtual-repeat-container dynamic-height>
+    <div md-virtual-repeat="result in search.results" md-on-demand>
+      <div layout="row" layout-align="start center" layout-margin layout-padding>
+        <p ng-bind="result.entry" ellipsis style="height: 35px"></p>
+      </div>
+      <md-divider ng-if="result"></md-divider>
+    </div>
+  </md-virtual-repeat-container>
+</form>

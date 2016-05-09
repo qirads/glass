@@ -35,6 +35,9 @@
     createNewSearch();
         
     function createNewSearch() {      
+      loadedPages = [];
+      numLoaded = 0;
+      numItems = 0;
       loadedPages[0] = null;
       ServerSearch.save({ criteria: vm.criteria, pageSize: PAGE_SIZE }).$promise.then(function(search) {
         vm.currentSearchId = search._id;
