@@ -17,7 +17,7 @@
     this.entryState = function(value) { _entryState = value; return this; };
 
     /** @ngInject */
-    this.$get = function($rootScope, $state, $timeout, $mdDialog, ServerSession, ServerUser, session) {
+    this.$get = function($rootScope, $state, $mdDialog, ServerSession, ServerUser, session) {
       
       /* eslint-disable angular/on-watch */
       $rootScope.$on('$stateChangeStart', onStateChangeStart);
@@ -122,7 +122,7 @@
           event.preventDefault();
           followRedirect();
         }
-        if (toState.name != _loginState && toState.data && toState.data.authenticate && !isLoggedIn()) {
+        if (toState.name !== _loginState && toState.data && toState.data.authenticate && !isLoggedIn()) {
           event.preventDefault();
           registerRedirect(toState, toParams);
           $state.transitionTo(_loginState);
@@ -130,9 +130,13 @@
       }
       
       function onSessionChange() {
-        $timeout(function() {
-          $state.reload();
-        });
+        if ($state.current.name === _loginState && isLoggedIn()) {
+          followRedirect();
+        }
+        if ($state.current.name !== _loginState && $state.current.data && $state.current.data.authenticate && !isLoggedIn()) {
+          registerRedirect($state.current.name, $state.params);
+          $state.transitionTo(_loginState);
+        }
       }
             
       function onKeepalive() {
@@ -146,7 +150,7 @@
           timeout();
         }
       }
-                  
+      
     };
     
   }
