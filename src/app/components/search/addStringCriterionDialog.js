@@ -3,10 +3,10 @@
 
   angular
     .module('glass')
-    .controller('ChangePasswordDialogController', ChangePasswordDialogController);
+    .controller('AddStringCriterionDialogController', AddStringCriterionDialogController);
 
   /** @ngInject */
-  function ChangePasswordDialogController($mdDialog) {
+  function AddStringCriterionDialogController($mdDialog) {
     var vm = this;
     vm.cancel = cancel;
     vm.submit = submit;
@@ -16,7 +16,7 @@
     }
     
     function submit() {
-      $mdDialog.hide(vm.password);
+      $mdDialog.hide(vm.field);
     }
     
   }

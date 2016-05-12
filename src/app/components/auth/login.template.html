@@ -1,29 +1,32 @@
 <md-content layout-padding>
 
-  <form name="vm.loginForm" ng-submit="vm.loginForm.$valid && vm.login()" layout="column" layout-align="center center" novalidate>
+  <form name="vm.loginForm" ng-submit="vm.loginForm.$valid && vm.login()" novalidate>
+    <div layout="column" layout-align="center center">
+      
+      <md-input-container class="md-block">
+        <label>Username</label> 
+        <input name="userName" ng-model="vm.credentials.userName" required ng-disabled="vm.loginResponsePending" autofocus>
+        <div ng-messages="vm.loginForm.userName.$error">
+          <div ng-message="required">User name is required.</div>
+        </div>
+      </md-input-container>
 
-    <md-input-container class="md-block">
-      <label>Username</label> 
-      <input name="userName" ng-model="vm.credentials.userName" required ng-disabled="vm.loginResponsePending" autofocus>
-      <div ng-messages="vm.loginForm.userName.$error">
-        <div ng-message="required">User name is required.</div>
-      </div>
-    </md-input-container>
+      <md-input-container class="md-block">
+        <label>Password</label>
+        <input name="password" type="password" ng-model="vm.credentials.password" required ng-disabled="vm.loginResponsePending">
+        <div ng-messages="vm.loginForm.password.$error">
+          <div ng-message="required">Password is required.</div>
+        </div>
+        <div ng-messages="vm.serverError" ng-show="vm.loginForm.$valid && vm.loginForm.$pristine">
+          <div ng-message="authFailure">{{vm.serverError.message}}</div>
+          <div ng-message="tooManyTries">{{vm.serverError.message}}</div>
+          <div ng-message="serverError">{{vm.serverError.message}}</div>
+        </div>
+      </md-input-container>
 
-    <md-input-container class="md-block">
-      <label>Password</label>
-      <input name="password" type="password" ng-model="vm.credentials.password" required ng-disabled="vm.loginResponsePending">
-      <div ng-messages="vm.loginForm.password.$error">
-        <div ng-message="required">Password is required.</div>
-      </div>
-      <div ng-messages="vm.serverError" ng-show="vm.loginForm.$valid && vm.loginForm.$pristine">
-        <div ng-message="authFailure">{{vm.serverError.message}}</div>
-        <div ng-message="tooManyTries">{{vm.serverError.message}}</div>
-        <div ng-message="serverError">{{vm.serverError.message}}</div>
-      </div>
-    </md-input-container>
+      <md-button type="submit" class="md-primary md-raised" ng-disabled="!vm.loginForm.$valid ||vm.loginResponsePending">Login</md-button>
 
-    <md-button type="submit" class="md-primary md-raised" ng-disabled="!vm.loginForm.$valid ||vm.loginResponsePending">Login</md-button>
+    </div>
   </form>
 
 </md-content>

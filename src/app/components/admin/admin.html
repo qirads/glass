@@ -1,7 +1,7 @@
 <div flex layout="row" layout-margin>
   <md-tabs flex>
     <md-tab label="Users" md-on-select="admin.refreshUsers()">
-      <div layout="row" flex="90" flex-offset="5" layout-align="center center">      
+      <div layout="row" flex="90" flex-offset="5">      
         <div layout="column" layout-margin flex>
           <div layout="column" layout-margin md-whiteframe="3" flex>
             <md-toolbar layout-fill>
@@ -13,7 +13,7 @@
               </div>
             </md-toolbar>
             <md-list>
-              <md-list-item ng-repeat="user in admin.users" layout-align="center center">
+              <md-list-item ng-repeat="user in admin.users">
                 <p layout-margin layout-padding>{{user.userName}}</p>
                 <span flex></span>
                 <md-button class="md-raised" ng-hide="user._id === admin.loggedInUserId()" ng-click="admin.toggleActivation(user)">{{user.activated ? 'Deactivate' : 'Activate'}}</md-button>

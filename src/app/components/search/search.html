@@ -1,15 +1,23 @@
 <form name="vm.searchForm" novalidate layout="column" flex>
-  <div layout="column" layout-padding>
+  <div layout="column">
     <div layout="row">
-      <md-button ng-click="">Study Status</md-button>
-      <md-button ng-click="">Study Type</md-button>
-      <md-button ng-click="">Study Timing</md-button>
-      <md-button ng-click="">Patient Location</md-button>
-      <md-button ng-click="">Report Timing</md-button>        
+      <md-menu-bar>
+        <md-menu ng-repeat="menu in search.menus">
+          <button ng-click="$mdOpenMenu()">{{menu.name}}</button>
+          <md-menu-content>
+            <md-menu-item ng-repeat="item in menu.items">
+              <md-button ng-click="item.action()">{{item.name}}</md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </md-menu-bar>
     </div>
-    <div layout="row">
+    <div layout="row" layout-margin>
       <md-chips ng-model="search.criteria" flex placeholder="Add search criteria" secondary-placeholder="Add more search criteria" md-on-add="search.createNewSearch()" md-on-remove="search.createNewSearch()">
       </md-chips>
+    </div>
+    <div layout="row" layout-margin layout-padding ng-show="search.status">
+      {{search.status}}.
     </div>
   </div>
 </div>

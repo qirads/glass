@@ -6,7 +6,7 @@
     .controller('CreateUserDialogController', CreateUserDialogController);
 
   /** @ngInject */
-  function CreateUserDialogController($mdDialog, ServerUser) {
+  function CreateUserDialogController($mdDialog) {
     var vm = this;
     
     vm.domain = 'local';
@@ -27,9 +27,7 @@
       if (vm.domain === 'local') {
         angular.extend(user, { password: vm.password });
       }
-      ServerUser.save(user).$promise.then(function() {
-        $mdDialog.hide();
-      });
+      $mdDialog.hide(user);
     }
     
   }

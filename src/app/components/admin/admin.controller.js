@@ -29,8 +29,10 @@
         controller: 'CreateUserDialogController',
         controllerAs: 'vm',
         bindToController: true
-      }).then(function() {
-        vm.refreshUsers();
+      }).then(function(user) {
+        ServerUser.save(user).$promise.then(function() {
+          vm.refreshUsers();
+        });
       });
     }
         
@@ -48,10 +50,11 @@
       $mdDialog.show({
         templateUrl: 'app/components/admin/changePasswordDialog.template.html',
         hasBackdrop: false,
-        locals: { user: user },
         controller: 'ChangePasswordDialogController',
         controllerAs: 'vm',
         bindToController: true
+      }).then(function(password) {
+        auth.changePassword(user._id, password)
       });
     }
         

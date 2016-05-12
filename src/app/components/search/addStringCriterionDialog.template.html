@@ -1,0 +1,27 @@
+<md-dialog aria-label="Set {{vm.title}}">
+  <form name="vm.addStringCriterionForm" ng-submit="vm.addStringCriterionForm.$valid && vm.submit()" novalidate>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Set {{vm.title}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm.cancel()">
+          <md-icon><i class="material-icons">close</i></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content flex>
+      <div class="md-dialog-content" flex>
+        <md-autocomplete required md-input-name="field" md-selected-item="vm.field" md-items="item in vm.options" md-floating-label="{{vm.title}}" placeholder="{{vm.title}}" md-min-length="0">
+          {{item}}
+          <div ng-messages="vm.addStringCriterionForm.field.$error">
+            <div ng-message="required">{{vm.title}} is required.</div>
+          </div>
+        </md-autocomplete>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+      <md-button ng-click="vm.cancel()">Cancel</md-button> 
+      <md-button type="submit" class="md-primary md-raised" ng-disabled="!vm.addStringCriterionForm.$valid">Set {{vm.title}}</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>  

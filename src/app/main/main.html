@@ -11,7 +11,7 @@
   <div layout="column" flex="100">
     <md-toolbar>
       <div ng-hide="main.isLoggedIn()" layout="row" layout-align="center center" flex>Glass</div>
-      <div ng-show="main.isLoggedIn()" layout="row" layout-align="center center" flex>
+      <div ng-show="main.isLoggedIn()" layout="row" flex>
         <span flex></span>
         <md-button md-no-ink>Logged in as {{main.loggedInUserName()}}</md-button>
         <md-button ng-click="main.logout()">Logout</md-button>

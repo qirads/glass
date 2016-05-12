@@ -3,6 +3,7 @@
 
   angular
     .module('glass')
-    .constant('PAGE_SIZE', 2);
+    .constant('PAGE_SIZE', 100)
+    .constant('INSTITUTIONS', ['Jacobi', 'NCB']);
 
 })();
