@@ -71,7 +71,8 @@
       ServerSearch.save({ criteria: vm.criteria, pageSize: PAGE_SIZE }).$promise.then(function(search) {
         vm.currentSearchId = search._id;
         numItems = search.count;
-        vm.status = (numItems ? (numItems > 1 ? numItems + ' results found in ' : '1 result found after ') : 'No results found after ') + (Date.now() - startTime) / 1000 + ' seconds.';
+        vm.status = (numItems ? (numItems === 1 ? '1 result found after ' : numItems.toLocaleString() + ' results found in ') : 'No results found after ');
+        vm.status += (Date.now() - startTime) / 1000 + ' seconds.';
         loadedPages[0] = search.results;
         numLoaded = search.results.length;
         formatEntries(search.results);
