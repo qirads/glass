@@ -1,0 +1,26 @@
+<md-dialog aria-label="{{vm.title}}" flex>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>{{vm.title}}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="vm.cancel()">
+        <md-icon><i class="material-icons">close</i></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content flex>
+    <div layout="column">
+      <md-list>
+        <md-list-item class="md-2-line" ng-repeat="report in vm.result.reports | orderBy:$index:true">
+          <div class="md-list-item-text">
+            <h3>{{vm.prettify(report.timestamp)}}:</h3>
+            <p semantic-diff left-obj="vm.result.reports[$index-1 > 0 ? $index-1 : 0].text" right-obj="report.text" options="vm.options"></p>
+          </div>
+        </md-list-item>
+      </md-list>      
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button ng-click="vm.cancel()">Close</md-button> 
+  </md-dialog-actions>
+</md-dialog>  

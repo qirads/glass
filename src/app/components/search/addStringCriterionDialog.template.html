@@ -10,8 +10,8 @@
       </div>
     </md-toolbar>
     <md-dialog-content flex>
-      <div class="md-dialog-content" flex>
-        <md-autocomplete required md-input-name="field" md-selected-item="vm.field" md-items="item in vm.options" md-floating-label="{{vm.title}}" placeholder="{{vm.title}}" md-min-length="0">
+      <div layout="row" layout-margin flex>
+        <md-autocomplete flex required md-input-name="field" md-selected-item="vm.field" md-items="item in vm.options" md-floating-label="{{vm.title}}" placeholder="{{vm.title}}" md-min-length="0">
           {{item}}
           <div ng-messages="vm.addStringCriterionForm.field.$error">
             <div ng-message="required">{{vm.title}} is required.</div>

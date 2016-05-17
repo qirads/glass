@@ -13,6 +13,7 @@
       'ui.router',
       'validation.match',
       'dibari.angular-ellipsis',
+      'diff-match-patch',
       'glass.auth',
       'glass.api'
     ]);

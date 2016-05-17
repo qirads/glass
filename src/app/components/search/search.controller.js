@@ -13,6 +13,7 @@
     vm.numResults = null;
     vm.elapsedSeconds = null;
     vm.createNewSearch = createNewSearch;
+    vm.showResult = showResult;
     vm.menus = [{
         name: 'Study Status',
         items: [{
@@ -127,6 +128,21 @@
         addChip(chipPrefix + ':' + chipSuffix)
       });      
     }
+    
+    function showResult(result) {
+      $mdDialog.show({
+        templateUrl: 'app/components/search/resultDialog.template.html',
+        hasBackdrop: false,
+        fullscreen: true,
+        locals: {
+          result: result
+        },
+        controller: 'ResultDialogController',
+        controllerAs: 'vm',
+        bindToController: true
+      });      
+    }
+
   }
     
 })();
