@@ -17,7 +17,7 @@
     this.entryState = function(value) { _entryState = value; return this; };
 
     /** @ngInject */
-    this.$get = function($rootScope, $state, $mdDialog, ServerSession, ServerUser, session) {
+    this.$get = function($rootScope, $timeout, $state, $mdDialog, ServerSession, ServerUser, session) {
       
       /* eslint-disable angular/on-watch */
       $rootScope.$on('$stateChangeStart', onStateChangeStart);
@@ -118,18 +118,21 @@
       }
       
       function onStateChangeStart(event, toState, toParams) {
-        if (toState.name === _loginState && isLoggedIn()) {
-          event.preventDefault();
-          followRedirect();
-        }
-        if (toState.name !== _loginState && toState.data && toState.data.authenticate && !isLoggedIn()) {
-          event.preventDefault();
-          registerRedirect(toState, toParams);
-          $state.transitionTo(_loginState);
-        }
+        $timeout(function() {
+          if (toState.name === _loginState && isLoggedIn()) {
+            event.preventDefault();
+            followRedirect();
+          }
+          if (toState.name !== _loginState && toState.data && toState.data.authenticate && !isLoggedIn()) {
+            event.preventDefault();
+            registerRedirect(toState, toParams);
+            $state.transitionTo(_loginState);
+          }
+        });
       }
       
       function onSessionChange() {
+        
         if ($state.current.name === _loginState && isLoggedIn()) {
           followRedirect();
         }
