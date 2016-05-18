@@ -6,7 +6,7 @@
     .controller('SearchController', SearchController);
 
   /** @ngInject */
-  function SearchController($window, $mdDialog, PAGE_SIZE, INSTITUTIONS, moment, ServerSearch) {
+  function SearchController($mdDialog, PAGE_SIZE, INSTITUTIONS, moment, ServerSearch) {
     var vm = this;
 
     vm.criteria = [];
