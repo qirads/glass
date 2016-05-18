@@ -1,0 +1,8 @@
+<md-virtual-repeat-container dynamic-height>
+  <div md-virtual-repeat="result in search.results" md-on-demand ng-click="search.showResult(result)">
+    <div layout="row" layout-align="start center" layout-margin layout-padding>
+      <p ng-bind="result.entry" ellipsis style="height: 35px"></p>
+    </div>
+    <md-divider ng-if="result"></md-divider>
+  </div>
+</md-virtual-repeat-container>

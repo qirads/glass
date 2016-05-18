@@ -13,18 +13,10 @@
     vm.isLoggedIn = auth.isLoggedIn;
     vm.loggedInUserName = auth.loggedInUserName;
     vm.hasAdminPrivileges = auth.hasAdminPrivileges;
-    vm.showAdmin = showAdmin;
-    vm.showSearch = showSearch;
-    vm.showAbout = showAbout;
+    vm.show = show;
 
-    function showAdmin() {
-      $state.transitionTo('main.admin');
-    }
-    function showSearch() {
-      $state.transitionTo('main.search');
-    }
-    function showAbout() {
-      $state.transitionTo('main.about');
+    function show(state) {
+      $state.transitionTo('main.' + state);
     }
 
   }

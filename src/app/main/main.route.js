@@ -33,6 +33,13 @@
         controllerAs: 'search',
         data: { authenticate: true }
       })
+      .state('main.history', {
+        url: 'history',
+        templateUrl: 'app/components/history/history.html',
+        controller: 'HistoryController',
+        controllerAs: 'history',
+        data: { authenticate: true }
+      })
       .state('main.about', {
         url: 'about',
         templateUrl: 'app/components/about/about.html',

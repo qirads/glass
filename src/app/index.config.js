@@ -17,7 +17,7 @@
     $logProvider.debugEnabled(true);
 
     // Pass in routes
-    authProvider.entryState('main')
+    authProvider.entryState('main.search')
       .loginState('main.login');
   }
 
