@@ -6,17 +6,18 @@
     .config(routerConfig);
 
   /** @ngInject */
-  function routerConfig($stateProvider) {
+  function routerConfig($stateProvider, $urlRouterProvider) {
 
     $stateProvider
       .state('main', {
+        abstract: true,
         url: '/',
         templateUrl: 'app/main/main.html',
         controller: 'MainController',
-        controllerAs: 'main',
-        data: { authenticate: true }
+        controllerAs: 'main'
       })
       .state('main.login', {
+        url: 'login',
         template: '<glass-login flex></glass-login>'
       })
       .state('main.admin', {
@@ -31,6 +32,9 @@
         templateUrl: 'app/components/search/search.html',
         controller: 'SearchController',
         controllerAs: 'search',
+        params: {
+          criteria: []
+        },
         data: { authenticate: true }
       })
       .state('main.history', {
@@ -47,7 +51,8 @@
         controllerAs: 'about',
         data: { authenticate: true }
       });
-
+      
+      $urlRouterProvider.when("/", "/search");
   }
 
 })();

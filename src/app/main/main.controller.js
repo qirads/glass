@@ -13,12 +13,6 @@
     vm.isLoggedIn = auth.isLoggedIn;
     vm.loggedInUserName = auth.loggedInUserName;
     vm.hasAdminPrivileges = auth.hasAdminPrivileges;
-    vm.show = show;
-
-    function show(state) {
-      $state.transitionTo('main.' + state);
-    }
-
   }
     
 })();

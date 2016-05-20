@@ -6,10 +6,10 @@
     .controller('SearchController', SearchController);
 
   /** @ngInject */
-  function SearchController($mdDialog, PAGE_SIZE, INSTITUTIONS, moment, ServerSearch) {
+  function SearchController($stateParams, $mdDialog, PAGE_SIZE, moment, ServerSearch) {
     var vm = this;
 
-    vm.criteria = [];
+    vm.criteria = $stateParams.criteria;
     vm.numResults = null;
     vm.elapsedSeconds = null;
     vm.createNewSearch = createNewSearch;
@@ -24,17 +24,30 @@
           action: function() { addChip('demographics:unverified'); }
         }]
       }, {
-        name: 'Study Type'
+        name: 'Study Type',
+        items: [{
+          name: 'Modality',
+          action: function() { openStringCriterionDialog('Modality', 'modality'); }
+        }, {
+          name: 'Study Description',
+          action: function() { openStringCriterionDialog('Study Description', 'description'); }
+        }, {
+          name: 'Body Part',
+          action: function() { openStringCriterionDialog('Body Part', 'bodyPart'); }
+        }, {
+          name: 'Specialty',
+          action: function() { openStringCriterionDialog('Specialty', 'specialty'); }
+        }]
       }, {
         name: 'Study Timing'
       }, {
         name: 'Patient Location',
         items: [{
           name: 'Institution',
-          action: function() { openStringCriterionDialog('Institution', INSTITUTIONS, 'institution'); }
+          action: function() { openStringCriterionDialog('Institution', 'institution'); }
         }, {
           name: 'Unit',
-          action: function() { openStringCriterionDialog('Unit', null, 'unit'); }
+          action: function() { openStringCriterionDialog('Unit', 'unit'); }
         }]
       }, {
         name: 'Report Timing'
@@ -113,19 +126,19 @@
       vm.createNewSearch();
     }
     
-    function openStringCriterionDialog(title, options, chipPrefix) {
+    function openStringCriterionDialog(title, property) {
       $mdDialog.show({
         templateUrl: 'app/components/search/addStringCriterionDialog.template.html',
         hasBackdrop: false,
         locals: {
           title: title,
-          options: options
+          property: property
         },
         controller: 'AddStringCriterionDialogController',
         controllerAs: 'vm',
         bindToController: true
-      }).then(function(chipSuffix) {
-        addChip(chipPrefix + ':' + chipSuffix)
+      }).then(function(selection) {
+        addChip(property + ':' + selection)
       });      
     }
     
@@ -140,7 +153,7 @@
         controller: 'ResultDialogController',
         controllerAs: 'vm',
         bindToController: true
-      });      
+      });
     }
 
   }

@@ -1,8 +1,16 @@
-<md-virtual-repeat-container dynamic-height>
-  <div md-virtual-repeat="result in search.results" md-on-demand ng-click="search.showResult(result)">
-    <div layout="row" layout-align="start center" layout-margin layout-padding>
-      <p ng-bind="result.entry" ellipsis style="height: 35px"></p>
+<md-virtual-repeat-container dynamic-height flex>
+  <div md-virtual-repeat="search in history.searches | orderBy:createdAt:true" flex>
+    <div layout="row" flex>
+      <div layout="column" layout-margin layout-align="center center">
+        <md-button ui-sref="main.search({ criteria: search.criteria })" class="md-primary md-raised">Search Again</md-button>
+      </div>
+      <div layout="column" layout-margin flex>
+        <p>Search for:</p>        
+        <md-chips ng-model="search.criteria" readonly=true flex></md-chips>
+        <p ng-show="search.count === undefined">Performed on {{history.prettify(search.createdAt)}}.</p>
+        <p ng-hide="search.count === undefined">Found {{search.count.toLocaleString()}} result(s) at {{history.prettify(search.createdAt)}}.</p>
+      </div>
     </div>
-    <md-divider ng-if="result"></md-divider>
+    <md-divider></md-divider>
   </div>
 </md-virtual-repeat-container>

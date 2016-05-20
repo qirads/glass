@@ -2,10 +2,10 @@
   <div layout="column" ng-show="main.isLoggedIn()">
     <md-sidenav md-is-locked-open="true" md-whiteframe="1" flex="100">
       <md-toolbar layout-align="center center">Glass</md-toolbar>
-      <md-button ng-click="main.show('search')">Search</md-button>
-      <md-button ng-click="main.show('history')">History</md-button>
-      <md-button ng-show="main.hasAdminPrivileges()" ng-click="main.show('admin')">Admin</md-button>
-      <md-button ng-click="main.show('about')">About</md-button>
+      <md-button ui-sref="main.search">Search</md-button>
+      <md-button ui-sref="main.history">History</md-button>
+      <md-button ui-sref="main.admin" ng-show="main.hasAdminPrivileges()">Admin</md-button>
+      <md-button ui-sref="main.about">About</md-button>
     </md-sidenav>
   </div>
   <div layout="column" flex="100">
@@ -17,6 +17,6 @@
         <md-button ng-click="main.logout()">Logout</md-button>
       </div>
     </md-toolbar>
-    <div layout="column" flex ui-view></div>
+    <div layout="column" flex ui-view ng-cloak></div>
     </div>
 </div>

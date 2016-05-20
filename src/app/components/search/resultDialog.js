@@ -8,7 +8,7 @@
   /** @ngInject */
   function ResultDialogController($mdDialog, moment) {
     var vm = this;
-    vm.cancel = cancel;    
+    vm.cancel = cancel;
     vm.prettify = prettify;
 
     vm.options = {

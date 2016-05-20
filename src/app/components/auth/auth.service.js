@@ -132,7 +132,6 @@
       }
       
       function onSessionChange() {
-        
         if ($state.current.name === _loginState && isLoggedIn()) {
           followRedirect();
         }
