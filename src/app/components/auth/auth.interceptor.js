@@ -12,7 +12,6 @@
     
     return {
       request: request,
-      response: response,
       responseError: responseError
     };
     
@@ -24,10 +23,6 @@
       return config;
     }
     
-    function response(data) {
-      return data;
-    }
-
     function responseError(rejection) {
       auth = auth || $injector.get('auth');
       if (

@@ -52,8 +52,10 @@
 
       function changePassword(userId, newPassword) {
         return ServerUser.update({ id: userId }, { password: newPassword }).$promise.then(function(serverUser) {
-          session.token = serverUser.token;
-          session.$update();
+          if (userId === session.user._id) {
+            session.token = serverUser.token;
+            session.$update();            
+          }
         });
       }
       
