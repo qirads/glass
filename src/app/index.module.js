@@ -11,6 +11,7 @@
       'ngAria',
       'ngMaterial',
       'ui.router',
+      'mdPickers',
       'validation.match',
       'dibari.angular-ellipsis',
       'diff-match-patch',

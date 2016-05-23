@@ -22,7 +22,7 @@
     vm.title += ', unit ' + vm.result.unit + ' (performed ' + prettify(vm.result.timestamp) + ')';
     
     function cancel() {
-      $mdDialog.cancel();
+      $mdDialog.hide();
     }
     
     function prettify(timestamp) {

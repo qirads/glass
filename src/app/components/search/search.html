@@ -19,6 +19,10 @@
     <div layout="row" layout-margin layout-padding ng-show="search.status">
       {{search.status}}
     </div>
+    <div layout="row" layout-margin layout-align="start end" ng-show="search.warnings.length">
+      <div><strong>Warning:</strong> following terms did not match query syntax and were interpreted as text:</div>
+      <md-chips ng-model="search.warnings" flex=100 readonly=true></md-chips>
+    </div>
   </div>
   <md-divider></md-divider>
   <div flex>

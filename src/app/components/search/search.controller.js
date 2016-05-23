@@ -10,7 +10,9 @@
     var vm = this;
 
     vm.criteria = $stateParams.criteria;
+    vm.showWarnings = false;
     vm.numResults = null;
+    vm.warnings = [];
     vm.elapsedSeconds = null;
     vm.createNewSearch = createNewSearch;
     vm.showResult = showResult;
@@ -39,7 +41,26 @@
           action: function() { openStringCriterionDialog('Specialty', 'specialty'); }
         }]
       }, {
-        name: 'Study Timing'
+        name: 'Study Timing',
+        items: [{
+          name: 'On...',
+          action: function() { openDateTimeCriterionDialog('study', 'on'); }
+        }, {
+          name: 'Within the Last...',
+          action: function() { openDateTimeCriterionDialog('study', 'within:last'); }
+        }, {
+          name: 'Within...of...',
+          action: function() { openDateTimeCriterionDialog('study', 'within'); }
+        }, {
+          name: 'Before...',
+          action: function() { openDateTimeCriterionDialog('study', 'before'); }
+        }, {
+          name: 'After...',
+          action: function() { openDateTimeCriterionDialog('study', 'after'); }
+        }, {
+          name: 'Between...',
+          action: function() { openDateTimeCriterionDialog('study', 'between'); }
+        }]
       }, {
         name: 'Patient Location',
         items: [{
@@ -50,7 +71,26 @@
           action: function() { openStringCriterionDialog('Unit', 'unit'); }
         }]
       }, {
-        name: 'Report Timing'
+        name: 'Report Timing',
+        items: [{
+          name: 'On...',
+          action: function() { openDateTimeCriterionDialog('report', 'on'); }
+        }, {
+          name: 'Within the Last...',
+          action: function() { openDateTimeCriterionDialog('report', 'within:last'); }
+        }, {
+          name: 'Within...of...',
+          action: function() { openDateTimeCriterionDialog('report', 'within'); }
+        }, {
+          name: 'Before...',
+          action: function() { openDateTimeCriterionDialog('report', 'before'); }
+        }, {
+          name: 'After...',
+          action: function() { openDateTimeCriterionDialog('report', 'after'); }
+        }, {
+          name: 'Between...',
+          action: function() { openDateTimeCriterionDialog('report', 'between'); }
+        }]
       }
     ]
     
@@ -87,9 +127,11 @@
         numItems = search.count;
         vm.status = (numItems ? (numItems === 1 ? '1 result found after ' : numItems.toLocaleString() + ' results found in ') : 'No results found after ');
         vm.status += (Date.now() - startTime) / 1000 + ' seconds.';
-        loadedPages[0] = search.results;
-        numLoaded = search.results.length;
-        formatEntries(search.results);
+        vm.warnings = [];
+        angular.forEach(search.warnings, function(warning) {
+          vm.warnings.push(vm.criteria[warning.index]);
+        })
+        storePage(0, search.results);
       });
     }
     
@@ -100,10 +142,14 @@
         pageNumber: pageNumber,
         pageSize: PAGE_SIZE
       }).$promise.then(function(search) {
-        loadedPages[pageNumber] = search.results;
-        numLoaded = numLoaded + search.results.length;
-        formatEntries(search.results);
+        storePage(pageNumber, search.results);
       });
+    }
+    
+    function storePage(pageNumber, results) {
+      loadedPages[pageNumber] = results;
+      numLoaded = results.length;
+      formatEntries(results);      
     }
     
     function formatEntries(results) {
@@ -126,6 +172,31 @@
       vm.createNewSearch();
     }
     
+    function openDateTimeCriterionDialog(object, method) {
+      var criterionName;
+      switch (method) {
+        case 'on': criterionName = 'On'; break;
+        case 'within:last': criterionName = 'WithinLast'; break;
+        case 'within': criterionName = 'Within'; break;
+        case 'before': criterionName = 'Before'; break;
+        case 'after': criterionName = 'After'; break;
+        case 'between': criterionName = 'Between'; break;
+      }
+      $mdDialog.show({
+        templateUrl: 'app/components/search/add' + criterionName + 'CriterionDialog.template.html',
+        hasBackdrop: false,
+        locals: {
+          object: object,
+          method: method
+        },
+        controller: 'AddDateTimeCriterionDialogController',
+        controllerAs: 'vm',
+        bindToController: true
+      }).then(function(chip) {
+        addChip(chip);
+      });            
+    }
+    
     function openStringCriterionDialog(title, property) {
       $mdDialog.show({
         templateUrl: 'app/components/search/addStringCriterionDialog.template.html',
@@ -138,8 +209,8 @@
         controllerAs: 'vm',
         bindToController: true
       }).then(function(selection) {
-        addChip(property + ':' + selection)
-      });      
+        addChip(property + ':' + selection);
+      });  
     }
     
     function showResult(result) {

@@ -1,0 +1,33 @@
+<md-dialog aria-label="{{vm.title}}">
+  <form name="vm.addDateTimeCriterionForm" ng-submit="vm.addDateTimeCriterionForm.$valid && vm.submit()" novalidate>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{vm.title}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm.cancel()">
+          <md-icon><i class="material-icons">close</i></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content flex>
+      <div layout="column" layout-margin layout-padding flex>
+        <div layout="row">
+          <md-input-container flex="33">
+            <label>Within Last</label>
+            <input name="withinAmount" ng-model="vm.withinAmount" type="number" required>
+          </md-input-container>
+          <md-input-container flex="66">
+            <label>Units</label>
+            <md-select name="withinUnits" ng-model="vm.withinUnits" required>
+              <md-option ng-repeat="unit in vm.unitOptions">{{unit}}</md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+      <md-button ng-click="vm.cancel()">Cancel</md-button> 
+      <md-button type="submit" class="md-primary md-raised" ng-disabled="!vm.addDateTimeCriterionForm.$valid">{{vm.title}}</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>  
