@@ -10,13 +10,16 @@
       </div>
     </md-toolbar>
     <md-dialog-content flex>
-      <div layout="row" layout-margin flex>
-        <md-autocomplete flex required md-input-name="field" md-selected-item="vm.field" md-items="item in vm.options" md-floating-label="{{vm.title}}" placeholder="{{vm.title}}" md-min-length="0">
-          {{item}}
+      <div layout="row" layout-margin layout-padding flex>
+        <md-input-container flex>
+          <label>{{vm.title}}</label>
+          <md-select flex md-autofocus name="field" ng-model="vm.field" required>
+            <md-option flex ng-repeat="option in vm.options">{{option}}</md-option>
+          </md-select>
           <div ng-messages="vm.addStringCriterionForm.field.$error">
             <div ng-message="required">{{vm.title}} is required.</div>
           </div>
-        </md-autocomplete>
+        </md-input-container>
       </div>
     </md-dialog-content>
     <md-dialog-actions>
