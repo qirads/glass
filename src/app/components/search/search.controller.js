@@ -6,13 +6,12 @@
     .controller('SearchController', SearchController);
 
   /** @ngInject */
-  function SearchController($stateParams, $mdDialog, PAGE_SIZE, moment, ServerSearch) {
+  function SearchController($stateParams, $mdDialog, $document, $mdToast, PAGE_SIZE, moment, ServerSearch) {
     var vm = this;
 
     vm.criteria = $stateParams.criteria;
     vm.showWarnings = false;
     vm.numResults = null;
-    vm.warnings = [];
     vm.elapsedSeconds = null;
     vm.createNewSearch = createNewSearch;
     vm.showResult = showResult;
@@ -127,10 +126,7 @@
         numItems = search.count;
         vm.status = (numItems ? (numItems === 1 ? '1 result found after ' : numItems.toLocaleString() + ' results found in ') : 'No results found after ');
         vm.status += (Date.now() - startTime) / 1000 + ' seconds.';
-        vm.warnings = [];
-        angular.forEach(search.warnings, function(warning) {
-          vm.warnings.push(vm.criteria[warning.index]);
-        })
+        processWarnings(search.warnings);
         storePage(0, search.results);
       });
     }
@@ -150,6 +146,23 @@
       loadedPages[pageNumber] = results;
       numLoaded = results.length;
       formatEntries(results);      
+    }
+    
+    function processWarnings(warnings) {
+      var criteria = [];
+      angular.forEach(warnings, function(warning) {
+        criteria.push(vm.criteria[warning.index]);
+      })
+      if (criteria.length) {
+        $mdToast.show({
+          templateUrl: 'app/components/search/warningToast.template.html',
+          position: "top left",
+          locals: { warnings: criteria },
+          controller: function() {},
+          controllerAs: 'vm',
+          bindToController: true
+        });
+      }      
     }
     
     function formatEntries(results) {
@@ -194,7 +207,7 @@
         bindToController: true
       }).then(function(chip) {
         addChip(chip);
-      });            
+      });
     }
     
     function openStringCriterionDialog(title, property) {
