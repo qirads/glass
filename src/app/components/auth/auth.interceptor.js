@@ -28,7 +28,7 @@
       if (
         rejection.status === 401 &&
         rejection.config.url.substr(0, BACKEND_URI.length) === BACKEND_URI &&
-        (rejection.config.url.substr(BACKEND_URI.length, '/api/v1/sessions'.length) !== '/api/v1/sessions' ||
+        (rejection.config.url.substr(BACKEND_URI.length, '/sessions'.length) !== '/sessions' ||
          rejection.config.method !== 'POST')
       ) {
         auth.reset();
