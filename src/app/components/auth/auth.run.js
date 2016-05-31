@@ -6,7 +6,7 @@
     .run(runBlock);
 
   /** @ngInject */
-  function runBlock($rootScope, $state, $timeout, auth, BACKEND_URI, Idle) {
+  function runBlock(auth, Idle) {
     Idle.watch();  
   }
 
