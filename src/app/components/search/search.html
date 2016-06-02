@@ -6,7 +6,7 @@
           <button ng-click="$mdOpenMenu()">{{menu.name}}</button>
           <md-menu-content>
             <md-menu-item ng-repeat="item in menu.items">
-              <md-button ng-click="item.action()">{{item.name}}</md-button>
+              <md-button id="{{item.id}}" ng-click="item.action()">{{item.name}}</md-button>
             </md-menu-item>
           </md-menu-content>
         </md-menu>
@@ -21,7 +21,7 @@
     </div>
   </div>
   <md-divider></md-divider>
-  <div flex>
+  <div flex id="results">
     <md-virtual-repeat-container dynamic-height>
       <div md-virtual-repeat="result in search.results" md-on-demand ng-click="search.showResult(result)">
         <div layout="row" layout-align="start center" layout-margin layout-padding>
