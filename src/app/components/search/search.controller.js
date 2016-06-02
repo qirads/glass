@@ -31,84 +31,84 @@
         items: [{
           id: 'studyModality',
           name: 'Modality',
-          action: function() { openStringCriterionDialog('Modality', 'modality', 'studyModality'); }
+          action: makeStringCriterionDialogOpener('Modality', 'modality', 'studyModality')
         }, {
           id: 'studyDescription',
           name: 'Study Description',
-          action: function() { openStringCriterionDialog('Study Description', 'description', 'studyDescription'); }
+          action: makeStringCriterionDialogOpener('Study Description', 'description', 'studyDescription')
         }, {
           id: 'studyBodyPart',
           name: 'Body Part',
-          action: function() { openStringCriterionDialog('Body Part', 'bodyPart', 'studyBodyPart'); }
+          action: makeStringCriterionDialogOpener('Body Part', 'bodyPart', 'studyBodyPart')
         }, {
           id: 'studySpecialty',
           name: 'Specialty',
-          action: function() { openStringCriterionDialog('Specialty', 'specialty', 'studySpecialty'); }
+          action: makeStringCriterionDialogOpener('Specialty', 'specialty', 'studySpecialty')
         }]
       }, {
         name: 'Study Timing',
         items: [{
           id: 'studyOn',
           name: 'On...',
-          action: function() { openDateTimeCriterionDialog('study', 'on', 'studyOn'); }
+          action: makeDateTimeCriterionDialogOpener('study', 'on', 'studyOn')
         }, {
           id: 'studyWithinLast',
           name: 'Within the Last...',
-          action: function() { openDateTimeCriterionDialog('study', 'within:last', 'studyWithinLast'); }
+          action: makeDateTimeCriterionDialogOpener('study', 'within:last', 'studyWithinLast')
         }, {
           id: 'studyWithin',
           name: 'Within...of...',
-          action: function() { openDateTimeCriterionDialog('study', 'within', 'studyWithin'); }
+          action: makeDateTimeCriterionDialogOpener('study', 'within', 'studyWithin')
         }, {
           id: 'studyBefore',
           name: 'Before...',
-          action: function() { openDateTimeCriterionDialog('study', 'before', 'studyBefore'); }
+          action: makeDateTimeCriterionDialogOpener('study', 'before', 'studyBefore')
         }, {
           id: 'studyAfter',
           name: 'After...',
-          action: function() { openDateTimeCriterionDialog('study', 'after', 'studyAfter'); }
+          action: makeDateTimeCriterionDialogOpener('study', 'after', 'studyAfter')
         }, {
           id: 'studyBetween',
           name: 'Between...',
-          action: function() { openDateTimeCriterionDialog('study', 'between', 'studyBetween'); }
+          action: makeDateTimeCriterionDialogOpener('study', 'between', 'studyBetween')
         }]
       }, {
         name: 'Patient Location',
         items: [{
           id: 'patientInstitution',
           name: 'Institution',
-          action: function() { openStringCriterionDialog('Institution', 'institution', 'patientInstitution'); }
+          action: makeStringCriterionDialogOpener('Institution', 'institution', 'patientInstitution')
         }, {
           id: 'patientUnit',
           name: 'Unit',
-          action: function() { openStringCriterionDialog('Unit', 'unit', 'patientUnit'); }
+          action: makeStringCriterionDialogOpener('Unit', 'unit', 'patientUnit')
         }]
       }, {
         name: 'Report Timing',
         items: [{
           id: 'reportOn',
           name: 'On...',
-          action: function() { openDateTimeCriterionDialog('report', 'on', 'reportOn'); }
+          action: makeDateTimeCriterionDialogOpener('report', 'on', 'reportOn')
         }, {
           id: 'reportWithinLast',
           name: 'Within the Last...',
-          action: function() { openDateTimeCriterionDialog('report', 'within:last', 'reportWithinLast'); }
+          action: makeDateTimeCriterionDialogOpener('report', 'within:last', 'reportWithinLast')
         }, {
           id: 'reportWithin',
           name: 'Within...of...',
-          action: function() { openDateTimeCriterionDialog('report', 'within', 'reportWithin'); }
+          action: makeDateTimeCriterionDialogOpener('report', 'within', 'reportWithin')
         }, {
           id: 'reportBefore',
           name: 'Before...',
-          action: function() { openDateTimeCriterionDialog('report', 'before', 'reportBefore'); }
+          action: makeDateTimeCriterionDialogOpener('report', 'before', 'reportBefore')
         }, {
           id: 'reportAfter',
           name: 'After...',
-          action: function() { openDateTimeCriterionDialog('report', 'after', 'reportAfter'); }
+          action: makeDateTimeCriterionDialogOpener('report', 'after', 'reportAfter')
         }, {
           id: 'reportBetween',
           name: 'Between...',
-          action: function() { openDateTimeCriterionDialog('report', 'between', 'reportBetween'); }
+          action: makeDateTimeCriterionDialogOpener('report', 'between', 'reportBetween')
         }]
       }
     ]
@@ -205,49 +205,53 @@
       vm.createNewSearch();
     }
     
-    function openDateTimeCriterionDialog(object, method, parent) {
-      var criterionName;
-      switch (method) {
-        case 'on': criterionName = 'On'; break;
-        case 'within:last': criterionName = 'WithinLast'; break;
-        case 'within': criterionName = 'Within'; break;
-        case 'before': criterionName = 'Before'; break;
-        case 'after': criterionName = 'After'; break;
-        case 'between': criterionName = 'Between'; break;
-      }
-      $mdDialog.show({
-        templateUrl: 'app/components/search/add' + criterionName + 'CriterionDialog.template.html',
-        hasBackdrop: false,
-        openFrom: '#' + parent,
-        closeTo: '#' + parent,
-        locals: {
-          object: object,
-          method: method
-        },
-        controller: 'AddDateTimeCriterionDialogController',
-        controllerAs: 'vm',
-        bindToController: true
-      }).then(function(chip) {
-        addChip(chip);
-      });
+    function makeDateTimeCriterionDialogOpener(object, method, parent) {
+      return function() {
+        var criterionName;
+        switch (method) {
+          case 'on': criterionName = 'On'; break;
+          case 'within:last': criterionName = 'WithinLast'; break;
+          case 'within': criterionName = 'Within'; break;
+          case 'before': criterionName = 'Before'; break;
+          case 'after': criterionName = 'After'; break;
+          case 'between': criterionName = 'Between'; break;
+        }
+        $mdDialog.show({
+          templateUrl: 'app/components/search/add' + criterionName + 'CriterionDialog.template.html',
+          hasBackdrop: false,
+          openFrom: '#' + parent,
+          closeTo: '#' + parent,
+          locals: {
+            object: object,
+            method: method
+          },
+          controller: 'AddDateTimeCriterionDialogController',
+          controllerAs: 'vm',
+          bindToController: true
+        }).then(function(chip) {
+          addChip(chip);
+        });        
+      };
     }
     
-    function openStringCriterionDialog(title, property, parent) {
-      $mdDialog.show({
-        templateUrl: 'app/components/search/addStringCriterionDialog.template.html',
-        hasBackdrop: false,
-        openFrom: '#' + parent,
-        closeTo: '#' + parent,
-        locals: {
-          title: title,
-          property: property
-        },
-        controller: 'AddStringCriterionDialogController',
-        controllerAs: 'vm',
-        bindToController: true
-      }).then(function(selection) {
-        addChip(property + ':' + selection);
-      });  
+    function makeStringCriterionDialogOpener(title, property, parent) {
+      return function() {
+        $mdDialog.show({
+          templateUrl: 'app/components/search/addStringCriterionDialog.template.html',
+          hasBackdrop: false,
+          openFrom: '#' + parent,
+          closeTo: '#' + parent,
+          locals: {
+            title: title,
+            property: property
+          },
+          controller: 'AddStringCriterionDialogController',
+          controllerAs: 'vm',
+          bindToController: true
+        }).then(function(selection) {
+          addChip(property + ':' + selection);
+        });          
+      };
     }
     
     function showResult(result) {
