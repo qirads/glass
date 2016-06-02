@@ -7,7 +7,8 @@
 
   /** @ngInject */
   function runBlock(auth, Idle) {
-    Idle.watch();  
+    auth.init();
+    Idle.watch();    
   }
 
 })();

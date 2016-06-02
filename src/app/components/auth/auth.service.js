@@ -18,15 +18,9 @@
 
     /** @ngInject */
     this.$get = function($rootScope, $timeout, $state, $mdDialog, ServerSession, ServerUser, session) {
-      
-      /* eslint-disable angular/on-watch */
-      $rootScope.$on('$stateChangeStart', onStateChangeStart);
-      $rootScope.$on('storedObject:session:externalChange', onSessionChange);
-      $rootScope.$on('Keepalive', onKeepalive);
-      $rootScope.$on('IdleStart', onIdleStart);
-      /* eslint-enable angular/on-watch */
-      
+            
       return {
+        init: init,
         login: login,
         addAuthHeader: addAuthHeader,
         changePassword: changePassword,
@@ -37,6 +31,15 @@
         logout: logout,
         reset: reset
       };
+      
+      function init() {
+        /* eslint-disable angular/on-watch */
+        $rootScope.$on('$stateChangeStart', onStateChangeStart);
+        $rootScope.$on('storedObject:session:externalChange', onSessionChange);
+        $rootScope.$on('Keepalive', onKeepalive);
+        $rootScope.$on('IdleStart', onIdleStart);
+        /* eslint-enable angular/on-watch */
+      }
       
       function login(credentials) {
         return ServerSession.save({ credentials: credentials }).$promise.then(function(serverSession) {
