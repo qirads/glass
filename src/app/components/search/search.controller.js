@@ -259,8 +259,6 @@
         templateUrl: 'app/components/search/resultDialog.template.html',
         hasBackdrop: false,
         fullscreen: true,
-        openFrom: '#results',
-        closeTo: '#results',
         locals: {
           result: result
         },
