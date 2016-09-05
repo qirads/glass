@@ -21,9 +21,9 @@
     </div>
   </div>
   <md-divider></md-divider>
-  <div>
+  <div flex>
     <md-virtual-repeat-container dynamic-height>
-      <div md-virtual-repeat="result in search.results" md-on-demand ng-click="search.showResult(result)">
+      <div md-virtual-repeat="result in search.results" md-on-demand ng-click="search.showResult($event, result)">
         <div layout="row" layout-align="start center" layout-margin layout-padding>
           <p ng-bind="result.entry" ellipsis style="height: 35px"></p>
         </div>

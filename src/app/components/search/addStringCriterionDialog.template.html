@@ -14,7 +14,7 @@
         <md-input-container flex>
           <label>{{vm.title}}</label>
           <md-select flex md-autofocus name="field" ng-model="vm.field" required>
-            <md-option flex ng-repeat="option in vm.options">{{option}}</md-option>
+            <md-option flex ng-value="option" ng-repeat="option in vm.options">{{option}}</md-option>
           </md-select>
           <div ng-messages="vm.addStringCriterionForm.field.$error">
             <div ng-message="required">{{vm.title}} is required.</div>

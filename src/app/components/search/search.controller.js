@@ -165,7 +165,7 @@
     function storePage(pageNumber, results) {
       loadedPages[pageNumber] = results;
       numLoaded = results.length;
-      formatEntries(results);      
+      formatEntries(results);
     }
     
     function processWarnings(warnings) {
@@ -254,11 +254,13 @@
       };
     }
     
-    function showResult(result) {
+    function showResult($event, result) {
       $mdDialog.show({
         templateUrl: 'app/components/search/resultDialog.template.html',
         hasBackdrop: false,
         fullscreen: true,
+        openFrom: $event.target,
+        closeTo: $event.target,
         locals: {
           result: result
         },
