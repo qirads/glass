@@ -142,7 +142,7 @@
       vm.status = null;
       var startTime = Date.now();
       ServerSearch.save({ criteria: vm.criteria, pageSize: PAGE_SIZE }).$promise.then(function(search) {
-        vm.currentSearchId = search._id;
+        vm.currentSearchId = search.id;
         numItems = search.count;
         vm.status = (numItems ? (numItems === 1 ? '1 result found after ' : numItems.toLocaleString() + ' results found in ') : 'No results found after ');
         vm.status += (Date.now() - startTime) / 1000 + ' seconds.';

@@ -55,7 +55,7 @@
 
       function changePassword(userId, newPassword) {
         return ServerUser.update({ id: userId }, { password: newPassword }).$promise.then(function(serverUser) {
-          if (userId === session.user._id) {
+          if (userId === session.user.id) {
             session.token = serverUser.token;
             session.$update();            
           }
@@ -80,7 +80,7 @@
       }
 
       function loggedInUserId() {
-        return hasLoggedInUser() ? session.user._id : '';
+        return hasLoggedInUser() ? session.user.id : '';
       }
       
       function hasAdminPrivileges() {
@@ -88,18 +88,18 @@
       }
           
       function refresh() {
-        return ServerSession.update({ id: session._id }, { state: 'open' }).$promise.then(function(serverSession) {
+        return ServerSession.update({ id: session.id }, { state: 'open' }).$promise.then(function(serverSession) {
           session.token = serverSession.token;
           session.$update();
         });
       }
       
       function logout() {
-        return ServerSession.update({ id: session._id }, { state: 'user-logged-out' }).$promise.then(reset);
+        return ServerSession.update({ id: session.id }, { state: 'user-logged-out' }).$promise.then(reset);
       }
 
       function timeout() {
-        return ServerSession.update({ id: session._id }, { state: 'user-timed-out' }).$promise.then(reset);
+        return ServerSession.update({ id: session.id }, { state: 'user-timed-out' }).$promise.then(reset);
       }
 
       function reset() {

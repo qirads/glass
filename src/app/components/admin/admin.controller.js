@@ -37,11 +37,11 @@
     }
         
     function toggleActivation(user) {
-      ServerUser.update( { id: user._id }, { activated: !user.activated } );
+      ServerUser.update( { id: user.id }, { activated: !user.activated } );
     }
 
     function deleteUser(user) {
-      ServerUser.remove( { id: user._id } ).$promise.then(function() {
+      ServerUser.remove( { id: user.id } ).$promise.then(function() {
         vm.refreshUsers();
       });
     }
@@ -54,7 +54,7 @@
         controllerAs: 'vm',
         bindToController: true
       }).then(function(password) {
-        auth.changePassword(user._id, password)
+        auth.changePassword(user.id, password)
       });
     }
         
