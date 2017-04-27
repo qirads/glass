@@ -1,7 +1,7 @@
 'use strict';
 
 //override node.js core modules (!!!) to allow offline local dns resolution on windows
-require('./utils').offline();
+require('node-offline-localhost').always();
 
 var path = require('path');
 var gulp = require('gulp');
@@ -41,7 +41,7 @@ function browserSyncInit(baseDir, browser) {
   // server.middleware = proxyMiddleware('/users', {target: 'http://jsonplaceholder.typicode.com', changeOrigin: true});
   require('ssl-root-cas/latest')
     .inject()
-    .addFile(path.join(__dirname, '..', conf.certFilePaths.rootCertificate));
+    .addFile(conf.certFilePaths.rootCertificate);
         
   server.middleware = proxyMiddleware(['/api'], {
     target: 'https://' + conf.hostName + ':3000',

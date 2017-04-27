@@ -12,14 +12,14 @@ var gutil = require('gulp-util');
  *  Host name
  */
 exports.hostName = 'www.glass.org';
-
+console.log(process.env);
 /**
  *  HTTPS configuration file paths
  */
 exports.certFilePaths = {
-  rootCertificate: 'gulp/certs/dev-root-cert.pem',
-  privateKey: 'gulp/certs/dev-key.pem',
-  certificate: 'gulp/certs/dev-cert.pem'
+  rootCertificate: process.env.GLASS_PATHS_ROOTCERTIFICATE,
+  privateKey: process.env.GLASS_PATHS_PRIVATEKEY,
+  certificate: process.env.GLASS_PATHS_CERTIFICATE
 };
   
 /**

@@ -5,4 +5,5 @@
 .idea
 /.tmp
 /dist
-/gulp/certs
+/.private
+.env
