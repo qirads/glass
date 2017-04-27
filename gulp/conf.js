@@ -12,7 +12,7 @@ var gutil = require('gulp-util');
  *  Host name
  */
 exports.hostName = 'www.glass.org';
-console.log(process.env);
+
 /**
  *  HTTPS configuration file paths
  */
