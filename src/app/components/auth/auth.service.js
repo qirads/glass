@@ -6,10 +6,8 @@
     .provider('auth', authProvider);
 
   function authProvider() {
-    
-    var _redirectToState = null;
-    var _redirectToParams = null;
 
+    var _redirectToState = null;    
     var _loginState = null;
     var _entryState = null;
 
@@ -17,7 +15,7 @@
     this.entryState = function(value) { _entryState = value; return this; };
 
     /** @ngInject */
-    this.$get = function($rootScope, $timeout, $state, $mdDialog, ServerSession, ServerUser, session) {
+    this.$get = function($transitions, $state, $rootScope, $mdDialog, ServerSession, ServerUser, session) {
             
       return {
         init: init,
@@ -33,14 +31,42 @@
       };
       
       function init() {
+        $transitions.onFinish({ to: _loginState }, startUpIfLoggedIn);
+        $transitions.onFinish({ to: requiresAuth }, redirectIfNotLoggedIn);
         /* eslint-disable angular/on-watch */
-        $rootScope.$on('$stateChangeStart', onStateChangeStart);
         $rootScope.$on('storedObject:session:externalChange', onSessionChange);
         $rootScope.$on('Keepalive', onKeepalive);
         $rootScope.$on('IdleStart', onIdleStart);
         /* eslint-enable angular/on-watch */
       }
-      
+
+      function startUpIfLoggedIn() {
+        if (isLoggedIn()) {
+          return startUp();
+        }
+      }
+
+      function startUp() {
+        if (_redirectToState) {
+          var toState = _redirectToState
+          _redirectToState = null;
+          return $state.go(toState);
+        } else {
+          return $state.go(_entryState);
+        }
+      }
+
+      function requiresAuth(state) {
+        return state.data && state.data.authenticate;
+      }
+
+      function redirectIfNotLoggedIn(transition) {
+        if (!isLoggedIn()) {
+          _redirectToState = transition.$to();
+          return $state.go(_loginState);
+        }
+      }
+
       function login(credentials) {
         return ServerSession.save({ credentials: credentials }).$promise.then(function(serverSession) {
           angular.extend(session, serverSession);
@@ -48,8 +74,8 @@
           ServerUser.get({ id: session.userId}).$promise.then(function(serverUser) {
             session.user = serverUser;
             session.$update();
+            startUp();
           });
-          followRedirect();
         });
       }
 
@@ -105,44 +131,15 @@
       function reset() {
         session.$delete();
         $mdDialog.cancel();
-        $state.transitionTo(_loginState);
+        $state.go(_loginState);
       }
-                
-      function registerRedirect(toState, toParams) {
-        _redirectToState = toState;
-        _redirectToParams = toParams;
-      }
-      
-      function followRedirect() {
-        if (_redirectToState) {
-          $state.transitionTo(_redirectToState, _redirectToParams);
-          _redirectToState = _redirectToParams = null;
-        } else {
-          $state.transitionTo(_entryState);
-        }      
-      }
-      
-      function onStateChangeStart(event, toState, toParams) {
-        $timeout(function() {
-          if (toState.name === _loginState && isLoggedIn()) {
-            event.preventDefault();
-            followRedirect();
-          }
-          if (toState.name !== _loginState && toState.data && toState.data.authenticate && !isLoggedIn()) {
-            event.preventDefault();
-            registerRedirect(toState, toParams);
-            $state.transitionTo(_loginState);
-          }
-        });
-      }
-      
+            
       function onSessionChange() {
         if ($state.current.name === _loginState && isLoggedIn()) {
-          followRedirect();
+          startUp();
         }
-        if ($state.current.name !== _loginState && $state.current.data && $state.current.data.authenticate && !isLoggedIn()) {
-          registerRedirect($state.current.name, $state.params);
-          $state.transitionTo(_loginState);
+        if (requiresAuth($state.current) && !isLoggedIn()) {
+          $state.go(_loginState);
         }
       }
             

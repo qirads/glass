@@ -1,32 +1,32 @@
 {
   "name": "glass",
   "dependencies": {
-    "angular-animate": "~1.5.8",
-    "angular-cookies": "~1.5.8",
-    "angular-touch": "~1.5.8",
-    "angular-sanitize": "~1.5.8",
-    "angular-messages": "~1.5.8",
-    "angular-aria": "~1.5.8",
-    "angular-resource": "~1.5.8",
-    "angular-ui-router": "~0.3.1",
-    "angular-material": "~1.1.1",
+    "angular-animate": "~1.6.4",
+    "angular-cookies": "~1.6.4",
+    "angular-touch": "~1.6.4",
+    "angular-sanitize": "~1.6.4",
+    "angular-messages": "~1.6.4",
+    "angular-aria": "~1.6.4",
+    "angular-resource": "~1.6.4",
+    "angular-ui-router": "~1.0.3",
+    "angular-material": "~1.1.4",
     "material-design-iconfont": "~0.0.2",
     "angular-toastr": "~2.1.1",
-    "moment": "~2.14.1",
-    "angular": "~1.5.8",
-    "ng-idle": "~1.3.0",
-    "angular-stored-object": "~1.0.7",
+    "moment": "~2.18.1",
+    "angular": "~1.6.4",
+    "ng-idle": "~1.3.2",
+    "angular-stored-object": "~1.0.9",
     "angular-validation-match": "~1.9.0",
-    "angular-ellipsis": "~0.1.6",
+    "angular-ellipsis": "~0.1.7",
     "angular-diff-match-patch": "~0.4.0",
-    "mdPickers": "^0.7.5"
+    "mdPickers": "~0.7.5"
   },
   "devDependencies": {
-    "angular-mocks": "~1.5.8"
+    "angular-mocks": "~1.6.4"
   },
   "resolutions": {
-    "moment": "~2.14.1",
-    "angular-material": "~1.1.1",
-    "angular": "~1.5.8"
+    "angular": "~1.6.4",
+    "angular-material": "~1.1.4",
+    "moment": "~2.18.1"
   }
 }
