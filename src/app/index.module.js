@@ -16,7 +16,8 @@
       'dibari.angular-ellipsis',
       'diff-match-patch',
       'glass.auth',
-      'glass.api'
+      'glass.api',
+      'glass.env'
     ]);
 
 })();

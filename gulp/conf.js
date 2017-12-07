@@ -14,14 +14,11 @@ var gutil = require('gulp-util');
 exports.hostName = 'www.glass.org';
 
 /**
- *  HTTPS configuration file paths
+ *  Backend
  */
-exports.certFilePaths = {
-  rootCertificate: process.env.GLASS_PATHS_ROOTCERTIFICATE,
-  privateKey: process.env.GLASS_PATHS_PRIVATEKEY,
-  certificate: process.env.GLASS_PATHS_CERTIFICATE
-};
-  
+exports.devBackEndURI = 'http://www.glass.org:9000/api/v1';
+exports.prodBackEndURI = 'https://coaster.glass.org/api/v1';
+
 /**
  *  The main paths of your project handle these with care
  */

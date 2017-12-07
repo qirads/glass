@@ -6,6 +6,7 @@ require('node-offline-localhost').always();
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
+var env = require('./env');
 
 var browserSync = require('browser-sync');
 var browserSyncSpa = require('browser-sync-spa');
@@ -39,38 +40,33 @@ function browserSyncInit(baseDir, browser) {
    * For more details and option, https://github.com/chimurai/http-proxy-middleware/blob/v0.9.0/README.md
    */
   // server.middleware = proxyMiddleware('/users', {target: 'http://jsonplaceholder.typicode.com', changeOrigin: true});
-  require('ssl-root-cas/latest')
-    .inject()
-    .addFile(conf.certFilePaths.rootCertificate);
-        
   server.middleware = proxyMiddleware(['/api'], {
-    target: 'https://' + conf.hostName + ':3000',
-    changeOrigin: true,
-    agent: require('https').globalAgent
+    target: 'http://' + conf.hostName + ':3000',
+    changeOrigin: true
   });
 
   browserSync.instance = browserSync.init({
     open: false,
     server: server,
     browser: browser,
-    https: {
-      key: conf.certFilePaths.privateKey,
-      cert: conf.certFilePaths.certificate
-    },
     ghostMode: false,
     port: 9000,
     ui: false,
     online: false
   }, function() {
-    opn('https://' + conf.hostName + ':9000/');
+    opn('http://' + conf.hostName + ':9000/');
   });
 }
+
+gulp.task('dev', env({
+  BACKEND_URI: conf.devBackEndURI
+}));
 
 browserSync.use(browserSyncSpa({
   selector: '[ng-app]'// Only needed for angular apps
 }));
 
-gulp.task('serve', ['watch'], function () {
+gulp.task('serve', ['dev', 'watch'], function () {
   browserSyncInit([path.join(conf.paths.tmp, '/serve'), conf.paths.src]);
 });
 
@@ -78,7 +74,7 @@ gulp.task('serve:dist', ['build'], function () {
   browserSyncInit(conf.paths.dist);
 });
 
-gulp.task('serve:e2e', ['inject'], function () {
+gulp.task('serve:e2e', ['dev', 'inject'], function () {
   browserSyncInit([conf.paths.tmp + '/serve', conf.paths.src], []);
 });
 
