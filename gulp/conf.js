@@ -17,7 +17,7 @@ exports.hostName = 'www.glass.org';
  *  Backend
  */
 exports.devBackEndURI = 'http://www.glass.org:9000/api/v1';
-exports.prodBackEndURI = 'https://coaster.glass.org/api/v1';
+exports.prodBackEndURI = 'https://coaster.qirads.org/api/v1';
 
 /**
  *  The main paths of your project handle these with care
