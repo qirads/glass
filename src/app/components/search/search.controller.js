@@ -6,7 +6,7 @@
     .controller('SearchController', SearchController);
 
   /** @ngInject */
-  function SearchController($stateParams, $mdDialog, $document, $mdToast, PAGE_SIZE, moment, ServerSearch) {
+  function SearchController($log, $stateParams, $mdDialog, $document, $mdToast, PAGE_SIZE, moment, ServerSearch) {
     var vm = this;
 
     vm.criteria = $stateParams.criteria;
@@ -134,7 +134,7 @@
     
     createNewSearch();
         
-    function createNewSearch() {      
+    function createNewSearch() {
       loadedPages = [];
       numLoaded = 0;
       numItems = 0;
@@ -164,7 +164,7 @@
     
     function storePage(pageNumber, results) {
       loadedPages[pageNumber] = results;
-      numLoaded = results.length;
+      numLoaded += results.length;
       formatEntries(results);
     }
     
