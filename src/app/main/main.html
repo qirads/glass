@@ -1,18 +1,30 @@
 <div layout="row" flex="100">
   <div layout="column" ng-show="main.isLoggedIn()">
-    <md-sidenav md-is-locked-open="true" md-whiteframe="1" flex="100">
-      <md-toolbar layout-align="center center">Glass</md-toolbar>
-      <md-button ui-sref="main.search">Search</md-button>
-      <md-button ui-sref="main.history">History</md-button>
-      <md-button ui-sref="main.admin" ng-show="main.hasAdminPrivileges()">Admin</md-button>
-      <md-button ui-sref="main.about">About</md-button>
+    <md-sidenav md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="1" flex="100">
+      <div layout="column">
+        <md-toolbar>
+          <div layout="row" flex>
+            <md-button hide-gt-md ng-click="main.toggleSidenav()">
+                <md-icon><i class="material-icons">menu</i></md-icon>
+            </md-button>
+            <div layout="column" layout-align="center center" flex>Glass</div>
+          </div>
+        </md-toolbar>
+        <md-button ui-sref="main.search">Search</md-button>
+        <md-button ui-sref="main.history">History</md-button>
+        <md-button ui-sref="main.admin" ng-show="main.hasAdminPrivileges()">Admin</md-button>
+        <md-button ui-sref="main.about">About</md-button>    
+      </div>
     </md-sidenav>
   </div>
   <div layout="column" flex="100">
     <md-toolbar>
       <div ng-hide="main.isLoggedIn()" layout="row" layout-align="center center" flex>Glass</div>
       <div ng-show="main.isLoggedIn()" layout="row" flex>
-        <span flex></span>
+      <md-button hide-gt-md ng-click="main.toggleSidenav()">
+        <md-icon><i class="material-icons">menu</i></md-icon>
+      </md-button>
+      <span flex></span>
         <md-button md-no-ink>Logged in as {{main.loggedInUserName()}}</md-button>
         <md-button ng-click="main.logout()">Logout</md-button>
       </div>
