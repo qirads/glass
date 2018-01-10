@@ -6,7 +6,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
- 
+var OpenBrowserPlugin = require('open-browser-webpack-plugin');
+
 /**
  * Env
  * Get npm lifecycle event to identify the environment
@@ -50,11 +51,11 @@ module.exports = function makeWebpackConfig() {
 
     // Filename for entry points
     // Only adds hash in build mode
-    filename: isProd ? '[name].[hash].js' : '[name].bundle.js',
+    filename: isProd ? '[name].[chunkhash].js' : '[name].bundle.js',
 
     // Filename for non-entry points
     // Only adds hash in build mode
-    chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
+    chunkFilename: isProd ? '[name].[chunkhash].js' : '[name].bundle.js'
   };
 
   /**
@@ -198,7 +199,7 @@ module.exports = function makeWebpackConfig() {
   config.plugins = [
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new webpack.DefinePlugin({
-      webpackBackendUri: JSON.stringify(isProd ? 'https://coaster.qirads.org/api/v1' : 'http://www.glass.org:3000/api/v1')
+      webpackBackendUri: JSON.stringify(isProd ? 'https://coaster.qirads.org/api/v1' : 'http://localhost:3000/api/v1')
     })
   ];
   
@@ -208,10 +209,12 @@ module.exports = function makeWebpackConfig() {
     // Render index.html
     config.plugins.push(
       new webpack.optimize.CommonsChunkPlugin({
-        name: "vendor",
+        name: 'vendor',
         minChunks: Infinity,
       }),
-      //new BundleAnalyzerPlugin(),
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'manifest'
+      }),
       new HtmlWebpackPlugin({
         template: './src/public/index.html',
         inject: 'body'
@@ -240,6 +243,11 @@ module.exports = function makeWebpackConfig() {
       new CopyWebpackPlugin([{
         from: __dirname + '/src/public'
       }])
+    )
+  } else if (!isTest) {
+    config.plugins.push(
+      new BundleAnalyzerPlugin(),
+      new OpenBrowserPlugin({ url: 'http://localhost:8081' })
     )
   }
 

@@ -51,6 +51,7 @@
     "node-libs-browser": "2.1.0",
     "node-sass": "^4.7.2",
     "null-loader": "^0.1.1",
+    "open-browser-webpack-plugin": "0.0.5",
     "phantomjs-prebuilt": "^2.1.16",
     "postcss-cssnext": "^3.0.2",
     "postcss-import": "^11.0.0",
