@@ -4,8 +4,8 @@
   describe('controllers', function(){
     var vm;
 
-    beforeEach(module('glass'));
-    beforeEach(inject(function(_$controller_) {
+    beforeEach(angular.mocks.module('glass'));
+    beforeEach(angular.mocks.inject(function(_$controller_) {
       vm = _$controller_('MainController');
     }));
 

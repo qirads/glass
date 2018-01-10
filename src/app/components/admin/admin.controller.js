@@ -24,7 +24,7 @@
 
     function showCreateUserDialog() {
       $mdDialog.show({
-        templateUrl: 'app/components/admin/createUserDialog.template.html',
+        template: require('./createUserDialog.template.html'),
         hasBackdrop: false,
         controller: 'CreateUserDialogController',
         controllerAs: 'vm',
@@ -48,7 +48,7 @@
     
     function showChangePasswordDialog(user) {
       $mdDialog.show({
-        templateUrl: 'app/components/admin/changePasswordDialog.template.html',
+        template: require('./changePasswordDialog.template.html'),
         hasBackdrop: false,
         controller: 'ChangePasswordDialogController',
         controllerAs: 'vm',

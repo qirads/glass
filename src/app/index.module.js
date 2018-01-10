@@ -15,9 +15,9 @@
       'validation.match',
       'dibari.angular-ellipsis',
       'diff-match-patch',
+      'glass.universal',
       'glass.auth',
-      'glass.api',
-      'glass.env'
+      'glass.api'
     ]);
 
 })();

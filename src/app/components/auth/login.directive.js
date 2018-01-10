@@ -9,7 +9,7 @@
   function glassLogin() {
     var directive = {
       restrict: 'E',
-      templateUrl: 'app/components/auth/login.template.html',
+      template: require('./login.template.html'),
       controller: 'GlassLoginController',
       controllerAs: 'vm'
     };

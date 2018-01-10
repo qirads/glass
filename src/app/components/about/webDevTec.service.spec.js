@@ -4,8 +4,8 @@
   describe('service webDevTec', function() {
     var webDevTec;
 
-    beforeEach(module('glass'));
-    beforeEach(inject(function(_webDevTec_) {
+    beforeEach(angular.mock.module('glass'));
+    beforeEach(angular.mock.inject(function(_webDevTec_) {
       webDevTec = _webDevTec_;
     }));
 

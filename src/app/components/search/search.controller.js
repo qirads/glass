@@ -175,7 +175,7 @@
       })
       if (criteria.length) {
         $mdToast.show({
-          templateUrl: 'app/components/search/warningToast.template.html',
+          template: require('./warningToast.template.html'),
           position: "top left",
           locals: { warnings: criteria },
           controller: function() {},
@@ -217,7 +217,7 @@
           case 'between': criterionName = 'Between'; break;
         }
         $mdDialog.show({
-          templateUrl: 'app/components/search/add' + criterionName + 'CriterionDialog.template.html',
+          template: require('./add' + criterionName + 'CriterionDialog.template.html'),
           hasBackdrop: false,
           openFrom: '#' + parent,
           closeTo: '#' + parent,
@@ -237,7 +237,7 @@
     function makeStringCriterionDialogOpener(title, property, parent) {
       return function() {
         $mdDialog.show({
-          templateUrl: 'app/components/search/addStringCriterionDialog.template.html',
+          template: require('./addStringCriterionDialog.template.html'),
           hasBackdrop: false,
           openFrom: '#' + parent,
           closeTo: '#' + parent,
@@ -256,7 +256,7 @@
     
     function showResult($event, result) {
       $mdDialog.show({
-        templateUrl: 'app/components/search/resultDialog.template.html',
+        template: require('./resultDialog.template.html'),
         hasBackdrop: false,
         fullscreen: true,
         locals: {
