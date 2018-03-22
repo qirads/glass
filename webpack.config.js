@@ -47,7 +47,7 @@ module.exports = function makeWebpackConfig() {
 
     // Output path from the view of the page
     // Uses webpack-dev-server in development
-    publicPath: isProd ? '/' : 'http://localhost:8081/',
+    publicPath: isProd ? '/' : 'http://localhost:8080/',
 
     // Filename for entry points
     // Only adds hash in build mode
@@ -83,6 +83,12 @@ module.exports = function makeWebpackConfig() {
   // Initialize module
   config.module = {
     rules: [{
+      test: require.resolve('diff-match-patch'),
+      use: [{
+        loader: 'expose-loader',
+        options: 'diff_match_patch'
+      }]
+    }, {
       // JS LOADER
       // Reference: https://github.com/babel/babel-loader
       // Transpile .js files using babel-loader
@@ -247,7 +253,7 @@ module.exports = function makeWebpackConfig() {
   } else if (!isTest) {
     config.plugins.push(
       new BundleAnalyzerPlugin(),
-      new OpenBrowserPlugin({ url: 'http://localhost:8081' })
+      new OpenBrowserPlugin({ url: 'http://localhost:8080' })
     )
   }
 

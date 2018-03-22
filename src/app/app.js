@@ -36,4 +36,5 @@ import './components/search/search.constants';
 import './components/search/dynamicHeight.directive';
 import './components/search/addDateTimeCriterionDialog';
 import './components/search/addStringCriterionDialog';
+import './components/search/result.scss';
 import './components/search/resultDialog.controller';

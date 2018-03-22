@@ -12,6 +12,7 @@ import '@uirouter/angularjs';
 import 'mdPickers';
 import 'angular-validation-match';
 import 'angular-ellipsis';
+import 'diff-match-patch';
 import 'angular-diff-match-patch';
 import 'angular-stored-object';
 import 'ng-idle';
